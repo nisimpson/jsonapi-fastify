@@ -1,0 +1,1187 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "test server",
+    "version": "1.0.0",
+    "description": "a jsonapi server",
+    "contact": {
+      "url": "https://jsonapi.org",
+      "email": "support@jsonapi.org"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://jsonapi.org/license"
+    }
+  },
+  "paths": {
+    "/openapi.json": {
+      "get": {
+        "summary": "Returns this OpenAPI document.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/people": {
+      "get": {
+        "summary": "Search for people resources",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/sort"
+          },
+          {
+            "$ref": "#/components/parameters/include"
+          },
+          {
+            "$ref": "#/components/parameters/filter"
+          },
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/fields"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of people resources",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "jsonapi": {
+                      "$ref": "#/components/schemas/jsonapi"
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/meta"
+                    },
+                    "links": {
+                      "$ref": "#/components/schemas/linksRecord"
+                    },
+                    "included": {
+                      "$ref": "#/components/schemas/included"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/peopleResource"
+                      }
+                    }
+                  },
+                  "required": []
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/H500_UNKNOWN_ERR"
+          },
+          "503": {
+            "$ref": "#/components/responses/H503_UNAVAILABLE"
+          }
+        },
+        "tags": [
+          "people"
+        ]
+      }
+    },
+    "/people/{id}": {
+      "get": {
+        "summary": "Find a specific people resource",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/resourceId"
+          },
+          {
+            "$ref": "#/components/parameters/fields"
+          },
+          {
+            "$ref": "#/components/parameters/filter"
+          },
+          {
+            "$ref": "#/components/parameters/include"
+          },
+          {
+            "$ref": "#/components/parameters/sort"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The target people resource",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "jsonapi": {
+                      "$ref": "#/components/schemas/jsonapi"
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/meta"
+                    },
+                    "links": {
+                      "$ref": "#/components/schemas/linksRecord"
+                    },
+                    "included": {
+                      "$ref": "#/components/schemas/included"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/peopleResource"
+                    }
+                  },
+                  "required": []
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/H403_FORBIDDEN"
+          },
+          "500": {
+            "$ref": "#/components/responses/H500_UNKNOWN_ERR"
+          },
+          "503": {
+            "$ref": "#/components/responses/H503_UNAVAILABLE"
+          }
+        },
+        "tags": [
+          "people"
+        ]
+      },
+      "post": {
+        "summary": "Create a new people resource",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/resourceId"
+          }
+        ],
+        "requestBody": {
+          "description": "A request document",
+          "content": {
+            "application/vnd.api+json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "jsonapi": {
+                    "$ref": "#/components/schemas/jsonapi"
+                  },
+                  "meta": {
+                    "$ref": "#/components/schemas/meta"
+                  },
+                  "links": {
+                    "$ref": "#/components/schemas/linksRecord"
+                  },
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "type": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "links": {
+                        "$ref": "#/components/schemas/linksRecord"
+                      },
+                      "meta": {
+                        "$ref": "#/components/schemas/meta"
+                      },
+                      "attributes": {
+                        "type": "object",
+                        "properties": {
+                          "firstname": {
+                            "type": "string"
+                          },
+                          "lastname": {
+                            "type": "string"
+                          }
+                        },
+                        "required": []
+                      },
+                      "relationships": {
+                        "type": "object",
+                        "properties": {
+                          "articles": {
+                            "type": "object",
+                            "properties": {
+                              "links": {
+                                "$ref": "#/components/schemas/linksRecord"
+                              },
+                              "meta": {
+                                "$ref": "#/components/schemas/meta"
+                              },
+                              "data": {
+                                "oneOf": [
+                                  {
+                                    "$ref": "#/components/schemas/resourceRef"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "$ref": "#/components/schemas/resourceRef"
+                                    }
+                                  }
+                                ],
+                                "nullable": true
+                              }
+                            },
+                            "required": [
+                              "data"
+                            ]
+                          }
+                        },
+                        "required": []
+                      }
+                    },
+                    "required": [
+                      "type"
+                    ]
+                  }
+                },
+                "required": [
+                  "data"
+                ]
+              },
+              "examples": {
+                "people": {
+                  "$ref": "#/components/examples/peopleRequestExample"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The created people resource",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "jsonapi": {
+                      "$ref": "#/components/schemas/jsonapi"
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/meta"
+                    },
+                    "links": {
+                      "$ref": "#/components/schemas/linksRecord"
+                    },
+                    "included": {
+                      "$ref": "#/components/schemas/included"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/peopleResource"
+                    }
+                  },
+                  "required": []
+                }
+              }
+            }
+          },
+          "202": {
+            "$ref": "#/components/responses/H202_ACCEPTED"
+          },
+          "204": {
+            "description": "The resource was created successfully"
+          },
+          "403": {
+            "$ref": "#/components/responses/H403_FORBIDDEN"
+          },
+          "409": {
+            "$ref": "#/components/responses/H409_CONFLICT"
+          },
+          "500": {
+            "$ref": "#/components/responses/H500_UNKNOWN_ERR"
+          },
+          "503": {
+            "$ref": "#/components/responses/H503_UNAVAILABLE"
+          }
+        },
+        "tags": [
+          "people"
+        ]
+      },
+      "patch": {
+        "summary": "Find a specific people resource",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/resourceId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The target people resource",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "jsonapi": {
+                      "$ref": "#/components/schemas/jsonapi"
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/meta"
+                    },
+                    "links": {
+                      "$ref": "#/components/schemas/linksRecord"
+                    },
+                    "included": {
+                      "$ref": "#/components/schemas/included"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/peopleResource"
+                    }
+                  },
+                  "required": []
+                }
+              }
+            }
+          },
+          "202": {
+            "$ref": "#/components/responses/H202_ACCEPTED"
+          },
+          "204": {
+            "description": "The resource was updated successfully"
+          },
+          "403": {
+            "$ref": "#/components/responses/H403_FORBIDDEN"
+          },
+          "409": {
+            "$ref": "#/components/responses/H409_CONFLICT"
+          },
+          "500": {
+            "$ref": "#/components/responses/H500_UNKNOWN_ERR"
+          },
+          "503": {
+            "$ref": "#/components/responses/H503_UNAVAILABLE"
+          }
+        },
+        "tags": [
+          "people"
+        ]
+      },
+      "delete": {
+        "summary": "Removes a specific people resource",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/resourceId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/H200_RES_OK"
+          },
+          "202": {
+            "$ref": "#/components/responses/H202_ACCEPTED"
+          },
+          "204": {
+            "description": "The resource was deleted successfully"
+          },
+          "403": {
+            "$ref": "#/components/responses/H403_FORBIDDEN"
+          },
+          "500": {
+            "$ref": "#/components/responses/H500_UNKNOWN_ERR"
+          },
+          "503": {
+            "$ref": "#/components/responses/H503_UNAVAILABLE"
+          }
+        },
+        "tags": [
+          "people"
+        ]
+      }
+    },
+    "/people/{id}/relationships/{relation}": {
+      "get": {
+        "summary": "Fetches resource relationships",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/resourceId"
+          },
+          {
+            "$ref": "#/components/parameters/resourceRelation"
+          },
+          {
+            "$ref": "#/components/parameters/include"
+          },
+          {
+            "$ref": "#/components/parameters/filter"
+          },
+          {
+            "$ref": "#/components/parameters/sort"
+          },
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/fields"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/H200_REL_OK"
+          },
+          "403": {
+            "$ref": "#/components/responses/H403_FORBIDDEN"
+          },
+          "500": {
+            "$ref": "#/components/responses/H500_UNKNOWN_ERR"
+          },
+          "503": {
+            "$ref": "#/components/responses/H503_UNAVAILABLE"
+          }
+        },
+        "tags": [
+          "people"
+        ]
+      },
+      "patch": {
+        "summary": "Updates the target resource relationships",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/resourceId"
+          },
+          {
+            "$ref": "#/components/parameters/resourceRelation"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/H200_REL_OK"
+          },
+          "202": {
+            "$ref": "#/components/responses/H202_ACCEPTED"
+          },
+          "204": {
+            "description": "The relationship was updated successfully"
+          },
+          "403": {
+            "$ref": "#/components/responses/H403_FORBIDDEN"
+          },
+          "500": {
+            "$ref": "#/components/responses/H500_UNKNOWN_ERR"
+          },
+          "503": {
+            "$ref": "#/components/responses/H503_UNAVAILABLE"
+          }
+        },
+        "tags": [
+          "people"
+        ]
+      },
+      "post": {
+        "summary": "Adds a new reference to the relationship list",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/resourceId"
+          },
+          {
+            "$ref": "#/components/parameters/resourceRelation"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/H200_REL_OK"
+          },
+          "202": {
+            "$ref": "#/components/responses/H202_ACCEPTED"
+          },
+          "204": {
+            "description": "The relationship was updated successfully"
+          },
+          "403": {
+            "$ref": "#/components/responses/H403_FORBIDDEN"
+          },
+          "500": {
+            "$ref": "#/components/responses/H500_UNKNOWN_ERR"
+          },
+          "503": {
+            "$ref": "#/components/responses/H503_UNAVAILABLE"
+          }
+        },
+        "tags": [
+          "people"
+        ]
+      },
+      "delete": {
+        "summary": "Removes an existing reference from the relationship list",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/resourceId"
+          },
+          {
+            "$ref": "#/components/parameters/resourceRelation"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/H200_REL_OK"
+          },
+          "202": {
+            "$ref": "#/components/responses/H202_ACCEPTED"
+          },
+          "204": {
+            "description": "The relationship was updated successfully"
+          },
+          "403": {
+            "$ref": "#/components/responses/H403_FORBIDDEN"
+          },
+          "500": {
+            "$ref": "#/components/responses/H500_UNKNOWN_ERR"
+          },
+          "503": {
+            "$ref": "#/components/responses/H503_UNAVAILABLE"
+          }
+        },
+        "tags": [
+          "people"
+        ]
+      }
+    },
+    "/people/{id}/{relation}": {
+      "get": {
+        "summary": "Fetches resource(s) associated with the target relationship",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/resourceId"
+          },
+          {
+            "$ref": "#/components/parameters/resourceRelation"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/H200_RES_OK"
+          },
+          "403": {
+            "$ref": "#/components/responses/H403_FORBIDDEN"
+          },
+          "503": {
+            "$ref": "#/components/responses/H503_UNAVAILABLE"
+          }
+        },
+        "tags": [
+          "people"
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "meta": {
+        "$ref": "#/components/schemas/meta"
+      },
+      "jsonapi": {
+        "$ref": "#/components/schemas/jsonapi"
+      },
+      "url": {
+        "$ref": "#/components/schemas/url"
+      },
+      "linkRef": {
+        "$ref": "#/components/schemas/linkRef"
+      },
+      "link": {
+        "oneOf": [
+          {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/url"
+              },
+              {
+                "$ref": "#/components/schemas/linkRef"
+              }
+            ]
+          },
+          {}
+        ]
+      },
+      "linksRecord": {
+        "$ref": "#/components/schemas/linksRecord"
+      },
+      "error": {
+        "$ref": "#/components/schemas/error"
+      },
+      "resourceRef": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "relationshipData": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/resourceRef"
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/resourceRef"
+            }
+          }
+        ],
+        "nullable": true
+      },
+      "included": {
+        "$ref": "#/components/schemas/included"
+      },
+      "peopleResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "links": {
+            "$ref": "#/components/schemas/linksRecord"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "firstname": {
+                "type": "string"
+              },
+              "lastname": {
+                "type": "string"
+              }
+            },
+            "required": []
+          },
+          "relationships": {
+            "type": "object",
+            "properties": {
+              "articles": {
+                "type": "object",
+                "properties": {
+                  "links": {
+                    "$ref": "#/components/schemas/linksRecord"
+                  },
+                  "meta": {
+                    "$ref": "#/components/schemas/meta"
+                  },
+                  "data": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/resourceRef"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/resourceRef"
+                        }
+                      }
+                    ],
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "data"
+                ]
+              }
+            },
+            "required": []
+          }
+        },
+        "required": [
+          "type"
+        ]
+      }
+    },
+    "responses": {
+      "H200_RES_OK": {
+        "description": "JSON:API accepted response",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "jsonapi": {
+                  "$ref": "#/components/schemas/jsonapi"
+                },
+                "meta": {
+                  "$ref": "#/components/schemas/meta"
+                },
+                "links": {
+                  "$ref": "#/components/schemas/linksRecord"
+                }
+              },
+              "required": [],
+              "description": "JSON:API accepted response"
+            }
+          }
+        }
+      },
+      "H200_REL_OK": {
+        "description": "JSON:API relationship response",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "jsonapi": {
+                  "$ref": "#/components/schemas/jsonapi"
+                },
+                "meta": {
+                  "$ref": "#/components/schemas/meta"
+                },
+                "links": {
+                  "$ref": "#/components/schemas/linksRecord"
+                },
+                "included": {
+                  "$ref": "#/components/schemas/included"
+                },
+                "data": {
+                  "$ref": "#/components/schemas/relationshipData"
+                }
+              },
+              "required": []
+            }
+          }
+        }
+      },
+      "H202_ACCEPTED": {
+        "description": "JSON:API accepted response",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "jsonapi": {
+                  "$ref": "#/components/schemas/jsonapi"
+                },
+                "meta": {
+                  "$ref": "#/components/schemas/meta"
+                },
+                "links": {
+                  "$ref": "#/components/schemas/linksRecord"
+                }
+              },
+              "required": [],
+              "description": "JSON:API accepted response"
+            }
+          }
+        }
+      },
+      "H409_CONFLICT": {
+        "description": "A response object",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "jsonapi": {
+                  "$ref": "#/components/schemas/jsonapi"
+                },
+                "meta": {
+                  "$ref": "#/components/schemas/meta"
+                },
+                "links": {
+                  "$ref": "#/components/schemas/linksRecord"
+                },
+                "errors": {
+                  "default": [
+                    {
+                      "status": "409",
+                      "code": "ECONFLICT",
+                      "title": "Resource already exists",
+                      "detail": "A resource with this id already exists on the server."
+                    }
+                  ],
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  }
+                }
+              },
+              "required": []
+            }
+          }
+        }
+      },
+      "H406_NOT_ACCEPTABLE": {
+        "description": "A response object",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "jsonapi": {
+                  "$ref": "#/components/schemas/jsonapi"
+                },
+                "meta": {
+                  "$ref": "#/components/schemas/meta"
+                },
+                "links": {
+                  "$ref": "#/components/schemas/linksRecord"
+                },
+                "errors": {
+                  "default": [
+                    {
+                      "status": "406",
+                      "code": "ENOTACCEPTABLE"
+                    }
+                  ],
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  }
+                }
+              },
+              "required": []
+            }
+          }
+        }
+      },
+      "H403_FORBIDDEN": {
+        "description": "A response object",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "jsonapi": {
+                  "$ref": "#/components/schemas/jsonapi"
+                },
+                "meta": {
+                  "$ref": "#/components/schemas/meta"
+                },
+                "links": {
+                  "$ref": "#/components/schemas/linksRecord"
+                },
+                "errors": {
+                  "default": [
+                    {
+                      "status": "403",
+                      "code": "EFORBIDDEN",
+                      "title": "Request not allowed",
+                      "detail": "The client request is not allowed on this resource."
+                    }
+                  ],
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  }
+                }
+              },
+              "required": []
+            }
+          }
+        }
+      },
+      "H503_UNAVAILABLE": {
+        "description": "A response object",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "jsonapi": {
+                  "$ref": "#/components/schemas/jsonapi"
+                },
+                "meta": {
+                  "$ref": "#/components/schemas/meta"
+                },
+                "links": {
+                  "$ref": "#/components/schemas/linksRecord"
+                },
+                "errors": {
+                  "default": [
+                    {
+                      "status": "503",
+                      "code": "EUNAVAILABLE",
+                      "title": "Resource temporarily unavailable",
+                      "detail": "The requested resource is temporarily unavailable."
+                    }
+                  ],
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  }
+                }
+              },
+              "required": []
+            }
+          }
+        }
+      },
+      "H404_FOREIGN": {
+        "description": "A response object",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "jsonapi": {
+                  "$ref": "#/components/schemas/jsonapi"
+                },
+                "meta": {
+                  "$ref": "#/components/schemas/meta"
+                },
+                "links": {
+                  "$ref": "#/components/schemas/linksRecord"
+                },
+                "errors": {
+                  "default": [
+                    {
+                      "status": "404",
+                      "code": "EFOREIGN",
+                      "title": "Relation is Foreign",
+                      "detail": "The requested relation is a foreign relation and cannot be accessed in this manner."
+                    }
+                  ],
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  }
+                }
+              },
+              "required": []
+            }
+          }
+        }
+      },
+      "H404_RES_NOT_FOUND": {
+        "description": "A response object",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "jsonapi": {
+                  "$ref": "#/components/schemas/jsonapi"
+                },
+                "meta": {
+                  "$ref": "#/components/schemas/meta"
+                },
+                "links": {
+                  "$ref": "#/components/schemas/linksRecord"
+                },
+                "errors": {
+                  "default": [
+                    {
+                      "status": "404",
+                      "code": "ENOTFOUND",
+                      "title": "Resource not found",
+                      "detail": "The requested resource does not exist on this server."
+                    }
+                  ],
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  }
+                }
+              },
+              "required": []
+            }
+          }
+        }
+      },
+      "H404_REL_NOT_FOUND": {
+        "description": "A response object",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "jsonapi": {
+                  "$ref": "#/components/schemas/jsonapi"
+                },
+                "meta": {
+                  "$ref": "#/components/schemas/meta"
+                },
+                "links": {
+                  "$ref": "#/components/schemas/linksRecord"
+                },
+                "errors": {
+                  "default": [
+                    {
+                      "status": "404",
+                      "code": "ENOTFOUND",
+                      "title": "Resource not found",
+                      "detail": "The relationship does not exist on this resource."
+                    }
+                  ],
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  }
+                }
+              },
+              "required": []
+            }
+          }
+        }
+      },
+      "H500_UNKNOWN_ERR": {
+        "description": "A response object",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "jsonapi": {
+                  "$ref": "#/components/schemas/jsonapi"
+                },
+                "meta": {
+                  "$ref": "#/components/schemas/meta"
+                },
+                "links": {
+                  "$ref": "#/components/schemas/linksRecord"
+                },
+                "errors": {
+                  "default": [
+                    {
+                      "status": "500",
+                      "code": "EUNKNOWN",
+                      "title": "Unknown Error",
+                      "detail": "An unknown error occurred. See stack trace for details."
+                    }
+                  ],
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  }
+                }
+              },
+              "required": []
+            }
+          }
+        }
+      }
+    },
+    "examples": {
+      "peopleExample": {
+        "summary": "A people resource",
+        "value": {
+          "id": "42",
+          "type": "people",
+          "attributes": {
+            "firstname": "John",
+            "lastname": "Doe"
+          },
+          "relationships": {}
+        }
+      },
+      "peopleRequestExample": {
+        "summary": "A people request object",
+        "value": {
+          "type": "people",
+          "attributes": {
+            "firstname": "John",
+            "lastname": "Doe"
+          },
+          "relationships": {}
+        }
+      }
+    },
+    "parameters": {
+      "resourceId": {
+        "name": "id",
+        "in": "path",
+        "schema": {
+          "type": "string",
+          "minLength": 1
+        },
+        "required": true,
+        "description": "Unique ID of the target resource"
+      },
+      "resourceRelation": {
+        "name": "relation",
+        "in": "path",
+        "schema": {
+          "type": "string",
+          "minLength": 1
+        },
+        "required": true,
+        "description": "Relationship associated with the resource"
+      },
+      "sort": {
+        "name": "sort",
+        "in": "query",
+        "description": "Sort resources per the JSON:API specification",
+        "style": "form",
+        "explode": false,
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "include": {
+        "name": "include",
+        "in": "query",
+        "description": "Fetch additional resources per the JSON:API specification",
+        "style": "form",
+        "explode": false,
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "filter": {
+        "name": "filter",
+        "in": "query",
+        "description": "Filters resources per the JSON:API specification",
+        "style": "deepObject",
+        "explode": true,
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "page": {
+        "name": "page",
+        "in": "query",
+        "description": "Paginates resource collection responses",
+        "style": "deepObject",
+        "explode": true,
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "fields": {
+        "name": "fields",
+        "in": "query",
+        "description": "Sparse fieldsets per the JSON:API specification",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "people"
+    }
+  ]
+}

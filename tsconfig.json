@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "target": "es2019",
+    "skipLibCheck": true,
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "strictNullChecks": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "declarationMap": true,
+    "noImplicitAny": true
+  },
+  "include": ["./src/**/*.ts"],
+  "exclude": ["node_modules", "src/tests"]
+}
