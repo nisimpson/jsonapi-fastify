@@ -37,6 +37,7 @@ export function build(opts?: JsonapiFastifyOptions): FastifyInstance {
       definitions: [comments, tags, people, articles]
     }
   );
+  instance.init();
   instance.addHook('onSend', (req, reply, payload, done) => {
     if (payload && loggerLevel !== 'silent') {
       const parsed = JSON.parse(payload as string);

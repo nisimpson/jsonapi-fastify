@@ -8,18 +8,27 @@ import { generateOpenapiDocument } from '@routes/openapi';
 import { OpenAPIObject } from 'openapi3-ts';
 
 export interface JsonapiFastifyInstance extends FastifyInstance {
+  init(): void;
   openapiDoc(): OpenAPIObject;
 }
 
 export const jsonapiFastify = (options: JsonapiFastifyOptions): JsonapiFastifyInstance => {
   const { serverOptions, plugin } = config(options);
   const server = fastify(serverOptions);
-  server.register(plugin, options);
-  server.ready(() => {
-    server.log.info('JSONAPI server is ready!');
-  });
-
+  const store = { initialized: false };
   return Object.assign(server, {
+    init() {
+      if (!store.initialized) {
+        store.initialized = true;
+        server.register(plugin, options).ready((err) => {
+          if (err) {
+            console.error('The server initialization failed', err);
+          } else {
+            server.log.info('JSONAPI server is ready!');
+          }
+        });
+      }
+    },
     openapiDoc: () => generateOpenapiDocument(options)
   });
 };

@@ -55,6 +55,7 @@ const server = jsonapiFastify({
   ]
 });
 
+server.init();
 server.listen(3000, (err, address) => {
   if (err) {
     console.error(err);
