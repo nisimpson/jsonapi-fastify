@@ -1,4 +1,5 @@
-import serializer from '../utils/serializer';
+import serializer from "@utils/serializer";
+
 
 const { serialize, deserialize } = serializer;
 

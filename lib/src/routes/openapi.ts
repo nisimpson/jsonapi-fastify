@@ -1,4 +1,15 @@
 import { generateSchema } from '@anatine/zod-openapi';
+import { relationshipMeta } from '@middleware/serialization';
+import { forEachFieldInDefinition } from '@schemas/fields';
+import {
+  schemas,
+  MEDIA_TYPE,
+  documents,
+  resourceFromDef,
+  ResourceSchema,
+  ref
+} from '@schemas/schema';
+import { JsonapiContext } from '@typings/jsonapi-fastify';
 import { RouteShorthandOptionsWithHandler } from 'fastify';
 import {
   RequestBodyObject,
@@ -9,17 +20,6 @@ import {
   ExampleObject,
   OpenApiBuilder
 } from 'openapi3-ts';
-import { JsonapiContext } from 'src/@types';
-import { relationshipMeta } from 'src/middleware';
-import { forEachFieldInDefinition } from 'src/schemas/fields';
-import {
-  schemas,
-  MEDIA_TYPE,
-  documents,
-  resourceFromDef,
-  ResourceSchema,
-  ref
-} from 'src/schemas/schema';
 import { z } from 'zod';
 
 function componentRef(opts: { name: string; category: string }) {

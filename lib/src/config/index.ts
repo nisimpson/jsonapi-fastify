@@ -1,14 +1,14 @@
+import { sequence } from '@middleware/sequence';
+import { registerRoutes } from '@routes/index';
+import { MEDIA_TYPE } from '@schemas/schema';
+import { JsonapiFastifyOptions } from '@typings/jsonapi-fastify';
+import { setErrorHandling } from '@utils/error';
 import {
   FastifyInstance,
+  FastifyPluginCallback,
   FastifyReply,
-  FastifyServerOptions,
-  FastifyPluginCallback
+  FastifyServerOptions
 } from 'fastify';
-import { JsonapiFastifyOptions } from 'src/@types';
-import { sequence } from 'src/middleware';
-import { registerRoutes } from 'src/routes';
-import { MEDIA_TYPE } from 'src/schemas/schema';
-import { setErrorHandling } from 'src/utils';
 import createJsonapiContext from './context';
 import { buildQueryParser, setContentParser } from './querystring';
 import { defaultValidationCompiler, ValidationSchema } from './validation';

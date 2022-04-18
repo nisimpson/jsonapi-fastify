@@ -1,9 +1,8 @@
+import { RelationalField } from '@schemas/fields';
+import { JsonapiQuery, JsonapiRelation, JsonapiResource } from '@typings/jsonapi-fastify';
+import { Meta } from '@typings/jsonapi-spec';
+import serializer, { SerializationOptions, ResourceSerializationOptions } from '@utils/serializer';
 import { FastifyRequest } from 'fastify';
-import { Meta } from 'src/@types/jsonapi-spec';
-import { JsonapiQuery, JsonapiRelation, JsonapiResource } from 'src/@types';
-import { RelationalField } from 'src/schemas/fields';
-import { SerializationOptions, ResourceSerializationOptions } from 'src/utils';
-import serializer from 'src/utils/serializer';
 import { FastifyAsyncCallback } from './sequence';
 
 export function relationshipMeta(def: RelationalField): Meta {

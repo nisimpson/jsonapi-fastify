@@ -1,7 +1,4 @@
-import { RelatedResourceDocument } from 'src/@types/jsonapi-spec';
-import { JsonapiResourceDefinition, JsonapiResource } from 'src/@types';
-import { UpdateRelationshipOperation } from 'src/@types/handler';
-import { toFastifySchema, validateRelationship, validateRelationBody } from 'src/config/validation';
+import { toFastifySchema, validateRelationship, validateRelationBody } from '@config/validation';
 import {
   FastifyAsyncCallback,
   buildSerializerFromRequest,
@@ -10,10 +7,13 @@ import {
   deserializeBody,
   buildHandlerRequest,
   endRoute
-} from 'src/middleware';
-import { documents } from 'src/schemas/schema';
-import { JsonapiFastifyError } from 'src/utils';
-import serializer from 'src/utils/serializer';
+} from '@middleware/middleware';
+import { documents } from '@schemas/schema';
+import { UpdateRelationshipOperation } from '@typings/handler';
+import { JsonapiResourceDefinition, JsonapiResource } from '@typings/jsonapi-fastify';
+import { RelatedResourceDocument } from '@typings/jsonapi-spec';
+import { JsonapiFastifyError } from '@utils/error';
+import serializer from '@utils/serializer';
 import { RouteConfiguration } from '..';
 
 const schema = (def: JsonapiResourceDefinition) => ({

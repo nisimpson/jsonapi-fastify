@@ -1,5 +1,5 @@
-import { MEDIA_TYPE } from '../schemas/schema';
-import { build, expectDocument, resetHandlers, setupTestSuite } from './fixtures';
+import { MEDIA_TYPE } from '@schemas/schema';
+import { setupTestSuite, resetHandlers, build, expectDocument } from './fixtures';
 import { ArticleHandler } from './fixtures/articles';
 import { CommentHandler } from './fixtures/comments';
 
@@ -74,7 +74,8 @@ describe('when updating', () => {
         return params.response.notFound();
       }
       if (params.operation === 'relationship:update') {
-        const relation = params.request.params.relation;
+        const relation = params.request.params.relation!;
+        // @ts-expect-error ignores typing issues.
         _article[relation] = params.data[relation];
         return params.response.ok(_article);
       }

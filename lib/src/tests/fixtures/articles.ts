@@ -1,6 +1,6 @@
+import { ToOneRelation, ToManyRelation } from '@typings/jsonapi-fastify';
 import { nanoid } from 'nanoid';
-import { define } from '../..';
-import { ToManyRelation, ToOneRelation } from '../../@types';
+import { define } from '../../index'
 import TestHandler from './TestHandler';
 
 type Article = {

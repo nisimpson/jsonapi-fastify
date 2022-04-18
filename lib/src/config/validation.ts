@@ -1,10 +1,12 @@
 import { FastifyInstance } from 'fastify';
-import { JsonapiResourceDefinition } from 'src/@types';
-import { FastifyAsyncCallback, relationshipMeta } from 'src/middleware';
-import { isRelationDefinition } from 'src/schemas/fields';
-import { documents } from 'src/schemas/schema';
+import { JsonapiResourceDefinition } from '@typings/jsonapi-fastify';
+import { FastifyAsyncCallback } from '@middleware/sequence';
+import { relationshipMeta } from '@middleware/serialization';
+import { isRelationDefinition } from '@schemas/fields';
+import { documents } from '@schemas/schema';
 import { z } from 'zod';
 import { ParsedQuery } from './querystring';
+
 
 export type ValidationSchema = WrappedSchema<z.ZodSchema<unknown>>;
 

@@ -1,4 +1,4 @@
-import { RouteConfiguration } from 'src/routes';
+import { RouteConfiguration } from '@routes/index';
 
 export * from './error';
 export * from './serializer';

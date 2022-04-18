@@ -1,5 +1,5 @@
-import { MEDIA_TYPE } from '../schemas/schema';
-import { articles, build, comments, setupTestSuite } from './fixtures';
+import { MEDIA_TYPE } from '@schemas/schema';
+import { setupTestSuite, comments, articles, build } from './fixtures';
 import { CommentHandler } from './fixtures/comments';
 
 describe('when deleting', () => {

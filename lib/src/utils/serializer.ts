@@ -1,14 +1,14 @@
 import {
   Link,
   Meta,
+  ResourceRef,
+  RelationshipObjectData,
+  RelationshipObject,
+  ResourceObject,
   MultiResourceDocument,
   RelatedResourceDocument,
-  RelationshipObject,
-  RelationshipObjectData,
-  ResourceObject,
-  ResourceRef,
   SingleResourceDocument
-} from 'src/@types/jsonapi-spec';
+} from '@typings/jsonapi-spec';
 
 type Data = Record<string, unknown>;
 
@@ -255,8 +255,7 @@ function serialize(data: Serializable, options: SerializationOptions): unknown {
   }
   if (data === null) {
     document.data = null;
-  }
-  else if (data) {
+  } else if (data) {
     document.data = toResourceObject(data, options);
     document.included = toIncludedResources(data, options, new Set<string>());
   }

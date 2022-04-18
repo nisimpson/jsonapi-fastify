@@ -1,19 +1,18 @@
-import { MEDIA_TYPE } from '../schemas/schema';
+import { MEDIA_TYPE } from '@schemas/schema';
 import {
-  people,
   build,
+  resetHandlers,
+  tags,
   expectDocument,
   fromDefinition,
-  articles,
   expectResponse,
-  comments,
-  resetHandlers
+  articles,
+  people,
+  comments
 } from './fixtures';
 import { PersonHandler } from './fixtures/people';
-import tags from './fixtures/tags';
 
 describe('when fetching', () => {
-
   const originalSearch = PersonHandler.search;
 
   beforeAll(() => {
@@ -385,7 +384,7 @@ describe('when fetching', () => {
   describe('paginated resources', () => {
     it('contains pagination links', async () => {
       PersonHandler.config().search = async (params) => {
-        const { limit, offset = 0 } = params.request.query.page;
+        const { limit, offset = 0 } = params.request.query.page || {};
         const items = [...people.examples];
         const result = items.slice(offset, limit);
         return params.response.ok(result, {

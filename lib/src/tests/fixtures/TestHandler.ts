@@ -1,5 +1,6 @@
-import { JsonapiHandler } from '../../@types';
-import { MemoryHandler } from '../../handlers/MemoryHandler';
+import { MemoryHandler } from "@handlers/MemoryHandler";
+import { JsonapiHandler } from "@typings/jsonapi-fastify";
+
 
 type PartialHandler<TItem> = Partial<JsonapiHandler<TItem>>;
 type HandlerOverride<TItem> = Pick<
@@ -7,7 +8,7 @@ type HandlerOverride<TItem> = Pick<
   'search' | 'create' | 'find' | 'update' | 'delete' | 'allowFilter' | 'allowSort'
 >;
 
-interface Handler<TItem> extends JsonapiHandler<TItem> {
+export interface Handler<TItem> extends JsonapiHandler<TItem> {
   base(): JsonapiHandler<TItem>;
   config(): HandlerOverride<TItem>;
   setConfig(config: HandlerOverride<TItem>): void;

@@ -4,9 +4,15 @@
     "baseUrl": ".",
     "outDir": "dist",
     "paths": {
-      "src": ["src/*"]
+      "@config/*": ["src/config/*"],
+      "@typings/*": ["src/@types/*"],
+      "@handlers/*": ["src/handlers/*"],
+      "@middleware/*": ["src/middleware/*"],
+      "@routes/*": ["src/routes/*"],
+      "@schemas/*": ["src/schemas/*"],
+      "@utils/*": ["src/utils/*"]
     }
   },
-  "include": ["./src/**/*.ts"],
-  "exclude": ["node_modules", "src/tests"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
 }

@@ -1,7 +1,6 @@
+import { OpenApiZodAny, extendApi } from '@anatine/zod-openapi';
+import { JsonapiResourceDefinition } from '@typings/jsonapi-fastify';
 import { z } from 'zod';
-import { extendApi, OpenApiZodAny } from '@anatine/zod-openapi';
-import { JsonapiResourceDefinition } from '../@types';
-import { SchemasObject } from 'openapi3-ts';
 
 export const MEDIA_TYPE = 'application/vnd.api+json';
 

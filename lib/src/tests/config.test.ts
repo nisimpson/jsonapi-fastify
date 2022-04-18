@@ -1,6 +1,6 @@
-import { JsonapiFastifyOptions } from "../@types";
-import { MEDIA_TYPE } from "../schemas/schema";
-import { build, people } from "./fixtures";
+import { MEDIA_TYPE } from '@schemas/schema';
+import { JsonapiFastifyOptions } from '@typings/jsonapi-fastify';
+import { people, build } from './fixtures';
 
 describe('app config', () => {
   const options: JsonapiFastifyOptions = {
@@ -15,7 +15,7 @@ describe('app config', () => {
         },
         license: {
           name: 'MIT',
-          url: 'https://jsonapi.org/license',
+          url: 'https://jsonapi.org/license'
         }
       }
     },
@@ -37,5 +37,4 @@ describe('app config', () => {
     const body = JSON.parse(response.body);
     expect(body.links.self).toBe('https://www.example.com/people');
   });
-
 });

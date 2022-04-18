@@ -3,8 +3,8 @@ import type {
   JsonapiFastifyOptions,
   JsonapiResourceDefinition,
   JsonapiResource
-} from 'src/@types/index';
-import type { FastifyAsyncCallback } from 'src/middleware';
+} from '@typings/jsonapi-fastify';
+import type { FastifyAsyncCallback } from '@middleware/middleware';
 
 export default function createJsonapiContext(
   fastify: FastifyInstance,

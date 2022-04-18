@@ -1,11 +1,9 @@
-import type { JsonapiResourceDefinition } from '../@types';
-import { z } from 'zod';
-import { extendApi } from '@anatine/zod-openapi';
+import { JsonapiResourceDefinition } from "@typings/jsonapi-fastify";
+import { z } from "zod";
+
 
 type Zod = typeof z;
 type SchemaCallback = (z: Zod) => z.ZodTypeAny;
-type ExtendApiOptions = Parameters<typeof extendApi>;
-type FieldOptions = ExtendApiOptions[1];
 
 export type PrimitiveField = {
   kind: 'primitive';

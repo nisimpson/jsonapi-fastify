@@ -1,5 +1,5 @@
-import { MEDIA_TYPE } from '../schemas/schema';
-import { people, build, expectDocument, fromDefinition, tags, resetHandlers } from './fixtures';
+import { MEDIA_TYPE } from '@schemas/schema';
+import { build, resetHandlers, expectDocument, fromDefinition, tags, people } from './fixtures';
 import { PersonHandler } from './fixtures/people';
 import { TagHandler } from './fixtures/tags';
 
@@ -122,7 +122,7 @@ describe('when creating resources', () => {
       url,
       headers: {
         'content-type': MEDIA_TYPE,
-        'accept': 'application/json'
+        accept: 'application/json'
       },
       payload: {
         data: {
@@ -260,7 +260,7 @@ describe('when creating resources', () => {
       });
 
     expect(response).toBeDefined();
-    expect(response.statusCode).toBe(403);
+    expect(response?.statusCode).toBe(403);
   });
 
   it('rejects resources that do not exist', async () => {

@@ -1,8 +1,8 @@
 import { FastifyInstance, FastifyServerOptions } from 'fastify';
 import qs from 'qs';
 import { parse } from 'querystring';
-import { JsonapiQuery } from 'src/@types';
-import { nonEmptyString } from 'src/schemas/schema';
+import { JsonapiQuery } from '@typings/jsonapi-fastify';
+import { nonEmptyString } from '@schemas/schema';
 import { z } from 'zod';
 
 export type ParsedQuery = {

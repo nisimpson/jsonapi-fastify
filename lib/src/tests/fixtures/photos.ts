@@ -1,6 +1,6 @@
+import { MemoryHandler } from '@handlers/MemoryHandler';
 import { nanoid } from 'nanoid';
-import { define } from '../..';
-import { MemoryHandler } from '../../handlers/MemoryHandler';
+import { define } from '../../index'
 
 export const photos = define((field) => ({
   resource: 'photos',

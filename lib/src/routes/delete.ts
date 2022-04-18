@@ -1,14 +1,14 @@
-import { JsonapiResourceDefinition } from 'src/@types';
-import { toFastifySchema } from 'src/config/validation';
+import { toFastifySchema } from '@config/validation';
 import {
   FastifyAsyncCallback,
   sequence,
   verifyHandler,
   buildHandlerRequest,
   endRoute
-} from 'src/middleware';
-import { documents } from 'src/schemas/schema';
-import { JsonapiFastifyError } from 'src/utils';
+} from '@middleware/middleware';
+import { documents } from '@schemas/schema';
+import { JsonapiResourceDefinition } from '@typings/jsonapi-fastify';
+import { JsonapiFastifyError } from '@utils/error';
 import { RouteSchema, RouteConfiguration } from '.';
 
 const schema: RouteSchema = () => ({

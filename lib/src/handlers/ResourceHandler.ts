@@ -1,4 +1,4 @@
-import { JsonapiHandler } from '../@types';
+import { JsonapiHandler } from '@typings/jsonapi-fastify';
 
 type UpdateRelationship<TResource> = JsonapiHandler<TResource>['update'];
 type BaseHandler<TResource> = Partial<JsonapiHandler<TResource>>;

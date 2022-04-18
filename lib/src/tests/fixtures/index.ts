@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
+import { isPrimitiveDefinition } from '@schemas/fields';
+import { MEDIA_TYPE } from '@schemas/schema';
+import { JsonapiFastifyOptions, JsonapiResourceDefinition } from '@typings/jsonapi-fastify';
 import { FastifyInstance, LightMyRequestResponse } from 'fastify';
-import { JsonapiFastifyOptions, JsonapiResourceDefinition } from '../../@types';
-import { isPrimitiveDefinition } from '../../schemas/fields';
 import { server } from '../../index';
-import people, { PersonHandler } from './people';
 import articles, { ArticleHandler } from './articles';
 import comments, { CommentHandler } from './comments';
+import people, { PersonHandler } from './people';
 import tags, { TagHandler } from './tags';
-import { MEDIA_TYPE } from '../../schemas/schema';
 
 export function setupTestSuite() {
   beforeAll(() => {

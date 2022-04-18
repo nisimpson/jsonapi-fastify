@@ -1,7 +1,7 @@
-import { JsonapiErrorObject } from 'src/@types/jsonapi-spec';
-import { JsonapiResourceDefinition } from 'src/@types';
-import { HandlerOperation } from 'src/@types/handler';
-import { JsonapiFastifyError } from 'src/utils';
+import { HandlerOperation } from '@typings/handler';
+import { JsonapiResourceDefinition } from '@typings/jsonapi-fastify';
+import { JsonapiErrorObject } from '@typings/jsonapi-spec';
+import { JsonapiFastifyError } from '@utils/error';
 import { FastifyAsyncCallback } from './sequence';
 
 export function verifyHandler(

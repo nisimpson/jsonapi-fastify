@@ -1,12 +1,12 @@
-import type { FastifyInstance, FastifySchema, RouteShorthandOptionsWithHandler } from 'fastify';
-import type { JsonapiFastifyOptions, JsonapiResourceDefinition } from '../@types';
-import createResource from './create';
+import { JsonapiResourceDefinition, JsonapiFastifyOptions } from '@typings/jsonapi-fastify';
+import { FastifySchema, RouteShorthandOptionsWithHandler, FastifyInstance } from 'fastify';
 import deleteResource from './delete';
 import findResource from './find';
-import search from './search';
-import updateResource from './update';
-import relationships from './relationships';
 import openapi from './openapi';
+import relationships from './relationships';
+import search from './search';
+import create from './create';
+import update from './update';
 
 type RouteFunction<TOut> = (
   definition: JsonapiResourceDefinition,
@@ -30,11 +30,11 @@ function registerResourceRoutes(
   fastify.get(`/${type}/:id/:relation`, relationships.related(def, options));
 
   // creating
-  fastify.post(`/${type}`, createResource(def, options));
+  fastify.post(`/${type}`, create(def, options));
   fastify.post(`/${type}/:id/relationships/:relation`, relationships.add(def, options));
 
   // updating
-  fastify.patch(`/${type}/:id`, updateResource(def, options));
+  fastify.patch(`/${type}/:id`, update(def, options));
   fastify.patch(`/${type}/:id/relationships/:relation`, relationships.update(def, options));
 
   // deleting

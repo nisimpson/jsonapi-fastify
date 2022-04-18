@@ -1,9 +1,7 @@
-import type { JsonapiFastifyOptions, JsonapiResourceDefinition } from './@types';
+import fields from '@schemas/fields';
+import { JsonapiFastifyOptions, JsonapiResourceDefinition } from '@typings/jsonapi-fastify';
 import fastify, { FastifyInstance } from 'fastify';
 import config from './config';
-import fields from './schemas/fields';
-export { MemoryHandler } from './handlers/MemoryHandler';
-export { ResourceHandler } from './handlers/ResourceHandler';
 
 export const server = (options: JsonapiFastifyOptions): FastifyInstance => {
   const { serverOptions, plugin } = config(options);

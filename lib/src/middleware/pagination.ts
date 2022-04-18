@@ -1,6 +1,6 @@
-import { JsonapiHandler } from 'src/@types';
-import { PageData } from 'src/@types/handler';
-import { LinksSerializationOptions } from 'src/utils';
+import { PageData } from '@typings/handler';
+import { JsonapiHandler } from '@typings/jsonapi-fastify';
+import { LinksSerializationOptions } from '@utils/serializer';
 
 export function serializePaginationLinks(
   data: PageData | undefined,

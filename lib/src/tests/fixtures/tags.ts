@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { define } from '../..';
+import { define } from '../../index'
 import TestHandler from './TestHandler';
 
 type Tag = {

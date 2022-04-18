@@ -7,7 +7,7 @@
   "scripts": {
     "prepublishOnly": "npm run build",
     "precommit": "npm run test",
-    "build": "npm run clean && tsc && tsc-alias",
+    "build": "npm run clean && tsc --project tsconfig.build.json && tsc-alias",
     "check": "tsc --noEmit",
     "clean": "rm -rf ./dist",
     "pretest": "npm run lint",

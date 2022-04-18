@@ -1,7 +1,7 @@
-import { JsonapiError } from '../@types';
-import { z } from 'zod';
+import { documents } from '@schemas/schema';
+import { JsonapiError } from '@typings/jsonapi-fastify';
 import { FastifyInstance } from 'fastify';
-import { documents } from '../schemas/schema';
+import { z } from 'zod';
 
 export class JsonapiFastifyError extends Error {
   errors: JsonapiError[];

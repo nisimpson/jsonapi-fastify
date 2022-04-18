@@ -1,6 +1,6 @@
+import { JsonapiRelation } from '@typings/jsonapi-fastify';
 import { nanoid } from 'nanoid';
-import { define } from '../..';
-import { JsonapiRelation } from '../../@types';
+import { define } from '../../index'
 import TestHandler from './TestHandler';
 
 type Comment = {

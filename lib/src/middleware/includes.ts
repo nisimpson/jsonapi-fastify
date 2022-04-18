@@ -1,7 +1,7 @@
-import { JsonapiResource, JsonapiContext, JsonapiRelation } from "src/@types";
-import { isRelationDefinition } from "src/schemas/fields";
-import { JsonapiFastifyError } from "src/utils";
-import { FastifyAsyncCallback } from "./sequence";
+import { isRelationDefinition } from '@schemas/fields';
+import { JsonapiResource, JsonapiContext, JsonapiRelation } from '@typings/jsonapi-fastify';
+import { JsonapiFastifyError } from '@utils/error';
+import { FastifyAsyncCallback } from './sequence';
 
 export type IncludeGraph = Record<string, unknown>;
 

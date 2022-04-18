@@ -1,4 +1,4 @@
-import { JsonapiRequest } from '../@types';
+import { JsonapiRequest } from '../@types/jsonapi-fastify';
 import { FastifyAsyncCallback } from './sequence';
 
 export * from './sequence';

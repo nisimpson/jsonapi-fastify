@@ -1,21 +1,22 @@
-import { SingleResourceDocument } from 'src/@types/jsonapi-spec';
-import { JsonapiResourceDefinition } from 'src/@types';
-import { toFastifySchema } from 'src/config/validation';
+import { toFastifySchema } from '@config/validation';
 import {
-  FastifyAsyncCallback,
-  foreignKeySearch,
-  buildSerializerFromRequest,
-  sequence,
-  verifySparseFieldsets,
-  verifyHandler,
   buildHandlerRequest,
+  buildSerializerFromRequest,
+  endRoute,
+  FastifyAsyncCallback,
   findIncludes,
-  endRoute
-} from 'src/middleware';
-import { isRelationDefinition } from 'src/schemas/fields';
-import { documents } from 'src/schemas/schema';
-import { JsonapiFastifyError } from 'src/utils';
-import serializer from 'src/utils/serializer';
+  foreignKeySearch,
+  sequence,
+  verifyHandler,
+  verifySparseFieldsets
+} from '@middleware/middleware';
+
+import { isRelationDefinition } from '@schemas/fields';
+import { documents } from '@schemas/schema';
+import { JsonapiResourceDefinition } from '@typings/jsonapi-fastify';
+import { SingleResourceDocument } from '@typings/jsonapi-spec';
+import { JsonapiFastifyError } from '@utils/error';
+import serializer from '@utils/serializer';
 import { RouteSchema, RouteConfiguration } from '..';
 
 const schema: RouteSchema = () => ({

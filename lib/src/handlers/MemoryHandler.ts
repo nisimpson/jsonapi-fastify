@@ -1,4 +1,4 @@
-import { JsonapiContext, JsonapiHandler, JsonapiResourceDefinition } from '../@types';
+import { JsonapiContext, JsonapiResourceDefinition, JsonapiHandler } from '@typings/jsonapi-fastify';
 
 type State = {
   context?: JsonapiContext;

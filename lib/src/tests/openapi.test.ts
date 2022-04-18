@@ -1,5 +1,5 @@
-import { JsonapiFastifyOptions } from '../@types';
-import { build, people } from './fixtures';
+import { JsonapiFastifyOptions } from '@typings/jsonapi-fastify';
+import { people, build } from './fixtures';
 import openapiJson from './fixtures/openapi.json';
 
 describe('openapi document', () => {
