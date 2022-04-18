@@ -50,7 +50,11 @@ export function deserializeBody(): FastifyAsyncCallback {
 
 export function buildSerializerFromRequest(request: FastifyRequest) {
   const context = request.jsonapi;
-  const prefix = context.baseUrl;
+
+  const prefix = context.options.prefix
+    ? `${context.baseUrl}${context.options.prefix}`
+    : context.baseUrl;
+
   const query = context.query(request);
   const options: SerializationOptions = {
     id: (data: JsonapiResource) => data.id,
@@ -64,7 +68,8 @@ export function buildSerializerFromRequest(request: FastifyRequest) {
       return false;
     },
     links: {
-      self: () => `${prefix}${request.url}`
+      // the url will have the prefix already present
+      self: () => `${context.baseUrl}${request.url}`
     },
     meta: (data) => {
       if (Array.isArray(data)) {

@@ -4,6 +4,8 @@ import { server, define, MemoryHandler } from 'jsonapi-fastify';
 import { nanoid } from 'nanoid';
 
 const app = server({
+  urlPrefixAlias: `http://localhost:3000/${process.env.STAGE}`,
+  prefix: '/api',
   openapi: {
     info: {
       version: '1.0.0',
