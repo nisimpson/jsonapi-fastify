@@ -4,15 +4,24 @@ import fields from '@schemas/fields';
 import { JsonapiFastifyOptions, JsonapiResourceDefinition } from '@typings/jsonapi-fastify';
 import fastify, { FastifyInstance } from 'fastify';
 import config from './config';
+import { generateOpenapiDocument } from '@routes/openapi';
+import { OpenAPIObject } from 'openapi3-ts';
 
-const jsonapiFastify = (options: JsonapiFastifyOptions): FastifyInstance => {
+export interface JsonapiFastifyInstance extends FastifyInstance {
+  openapiDoc(): OpenAPIObject;
+}
+
+const jsonapiFastify = (options: JsonapiFastifyOptions): JsonapiFastifyInstance => {
   const { serverOptions, plugin } = config(options);
   const server = fastify(serverOptions);
   server.register(plugin, options);
   server.ready(() => {
     server.log.info('JSONAPI server is ready!');
   });
-  return server;
+
+  return Object.assign(server, {
+    openapiDoc: () => generateOpenapiDocument(options)
+  });
 };
 
 type DefineCallbackArgs = typeof fields;

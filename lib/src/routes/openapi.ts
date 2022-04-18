@@ -9,7 +9,7 @@ import {
   ResourceSchema,
   ref
 } from '@schemas/schema';
-import { JsonapiContext } from '@typings/jsonapi-fastify';
+import { JsonapiFastifyOptions } from '@typings/jsonapi-fastify';
 import { RouteShorthandOptionsWithHandler } from 'fastify';
 import {
   RequestBodyObject,
@@ -18,7 +18,8 @@ import {
   OperationObject,
   ResponsesObject,
   ExampleObject,
-  OpenApiBuilder
+  OpenApiBuilder,
+  OpenAPIObject
 } from 'openapi3-ts';
 import { z } from 'zod';
 
@@ -120,7 +121,7 @@ function toResponseObjectWithRef(opts: {
   };
 }
 
-export function createDocument(context: JsonapiContext): unknown {
+export function generateOpenapiDocument(options: JsonapiFastifyOptions): OpenAPIObject {
   const builder = new OpenApiBuilder();
   builder.addInfo(
     Object.assign(
@@ -128,7 +129,7 @@ export function createDocument(context: JsonapiContext): unknown {
         title: 'JSON:API server',
         version: '1.0'
       },
-      context.options.openapi?.info
+      options.openapi?.info
     )
   );
   // add shared schemas
@@ -242,7 +243,7 @@ export function createDocument(context: JsonapiContext): unknown {
     });
 
   // add resource specific components
-  for (const def of context.options.definitions) {
+  for (const def of options.definitions) {
     // add tag
     builder.addTag({
       name: def.resource,
@@ -673,7 +674,7 @@ const handler = (): RouteShorthandOptionsWithHandler => {
     },
     config: {},
     handler: async (request, reply) => {
-      const doc = createDocument(request.jsonapi);
+      const doc = generateOpenapiDocument(request.jsonapi.options);
       const config = reply.context.config as Record<string, unknown>;
       config.doc = doc;
       reply.status(200).send(doc);
