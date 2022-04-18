@@ -1,11 +1,11 @@
 {
-	"scripts": {
-		"test": "pnpm jest --verbose --silent",
-		"test:debug": "LOG_LEVEL=debug pnpm jest --verbose",
-		"build": "pnpm -r build"
-	},
-	"devDependencies": {
-		"jest": "^27.5.1",
-		"serverless": "^3.14.0"
-	}
+  "scripts": {
+    "test": "pnpm jest --verbose --silent",
+    "test:debug": "LOG_LEVEL=debug pnpm jest --verbose",
+    "build": "pnpm -r build"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1",
+    "serverless": "^3.14.0"
+  }
 }
