@@ -1,0 +1,1601 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "test server",
+    "version": "1.0.0",
+    "description": "a jsonapi server",
+    "contact": {
+      "url": "https://jsonapi.org",
+      "email": "support@jsonapi.org"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://jsonapi.org/license"
+    }
+  },
+  "paths": {
+    "/people": {
+      "get": {
+        "summary": "Search for people resources",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/sort"
+          },
+          {
+            "$ref": "#/components/parameters/include"
+          },
+          {
+            "$ref": "#/components/parameters/filter"
+          },
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/fields"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/peopleCollectionResponse"
+          },
+          "500": {
+            "$ref": "#/components/responses/error500Unknown"
+          },
+          "503": {
+            "$ref": "#/components/responses/error503Unavailable"
+          }
+        },
+        "tags": [
+          "people"
+        ]
+      },
+      "post": {
+        "summary": "Create a new people resource",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/peopleRequest"
+        },
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/peopleResponse"
+          },
+          "202": {
+            "$ref": "#/components/responses/infoResponse"
+          },
+          "204": {
+            "description": "The resource was created successfully"
+          },
+          "403": {
+            "$ref": "#/components/responses/error403Forbidden"
+          },
+          "409": {
+            "$ref": "#/components/responses/error409Conflict"
+          },
+          "500": {
+            "$ref": "#/components/responses/error500Unknown"
+          },
+          "503": {
+            "$ref": "#/components/responses/error503Unavailable"
+          }
+        },
+        "tags": [
+          "people"
+        ]
+      }
+    },
+    "/people/{id}": {
+      "get": {
+        "summary": "Find a specific people resource",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/resourceId"
+          },
+          {
+            "$ref": "#/components/parameters/fields"
+          },
+          {
+            "$ref": "#/components/parameters/filter"
+          },
+          {
+            "$ref": "#/components/parameters/include"
+          },
+          {
+            "$ref": "#/components/parameters/sort"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/peopleResponse"
+          },
+          "403": {
+            "$ref": "#/components/responses/error403Forbidden"
+          },
+          "500": {
+            "$ref": "#/components/responses/error500Unknown"
+          },
+          "503": {
+            "$ref": "#/components/responses/error503Unavailable"
+          }
+        },
+        "tags": [
+          "people"
+        ]
+      },
+      "patch": {
+        "summary": "Find a specific people resource",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/resourceId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/peopleResponse"
+          },
+          "202": {
+            "$ref": "#/components/responses/infoResponse"
+          },
+          "204": {
+            "description": "The resource was updated successfully"
+          },
+          "403": {
+            "$ref": "#/components/responses/error403Forbidden"
+          },
+          "409": {
+            "$ref": "#/components/responses/error409Conflict"
+          },
+          "500": {
+            "$ref": "#/components/responses/error500Unknown"
+          },
+          "503": {
+            "$ref": "#/components/responses/error503Unavailable"
+          }
+        },
+        "tags": [
+          "people"
+        ]
+      },
+      "delete": {
+        "summary": "Removes a specific people resource",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/resourceId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/infoResponse"
+          },
+          "202": {
+            "$ref": "#/components/responses/infoResponse"
+          },
+          "204": {
+            "description": "The resource was deleted successfully"
+          },
+          "403": {
+            "$ref": "#/components/responses/error403Forbidden"
+          },
+          "500": {
+            "$ref": "#/components/responses/error500Unknown"
+          },
+          "503": {
+            "$ref": "#/components/responses/error503Unavailable"
+          }
+        },
+        "tags": [
+          "people"
+        ]
+      }
+    },
+    "/people/{id}/relationships/{relation}": {
+      "get": {
+        "summary": "Fetches resource relationships",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/resourceId"
+          },
+          {
+            "$ref": "#/components/parameters/resourceRelation"
+          },
+          {
+            "$ref": "#/components/parameters/include"
+          },
+          {
+            "$ref": "#/components/parameters/filter"
+          },
+          {
+            "$ref": "#/components/parameters/sort"
+          },
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/fields"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/relationResponse"
+          },
+          "403": {
+            "$ref": "#/components/responses/error403Forbidden"
+          },
+          "500": {
+            "$ref": "#/components/responses/error500Unknown"
+          },
+          "503": {
+            "$ref": "#/components/responses/error503Unavailable"
+          }
+        },
+        "tags": [
+          "people"
+        ]
+      },
+      "patch": {
+        "summary": "Updates the target resource relationships",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/resourceId"
+          },
+          {
+            "$ref": "#/components/parameters/resourceRelation"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/infoResponse"
+          },
+          "204": {
+            "description": "The relationships was updated successfully"
+          },
+          "403": {
+            "$ref": "#/components/responses/error403Forbidden"
+          },
+          "500": {
+            "$ref": "#/components/responses/error500Unknown"
+          },
+          "503": {
+            "$ref": "#/components/responses/error503Unavailable"
+          }
+        },
+        "tags": [
+          "people"
+        ]
+      },
+      "post": {
+        "summary": "Adds a new reference to the relationship list",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/resourceId"
+          },
+          {
+            "$ref": "#/components/parameters/resourceRelation"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/infoResponse"
+          },
+          "204": {
+            "description": "The relationships was updated successfully"
+          },
+          "403": {
+            "$ref": "#/components/responses/error403Forbidden"
+          },
+          "500": {
+            "$ref": "#/components/responses/error500Unknown"
+          },
+          "503": {
+            "$ref": "#/components/responses/error503Unavailable"
+          }
+        },
+        "tags": [
+          "people"
+        ]
+      },
+      "delete": {
+        "summary": "Removes an existing reference from the relationship list",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/resourceId"
+          },
+          {
+            "$ref": "#/components/parameters/resourceRelation"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/infoResponse"
+          },
+          "204": {
+            "description": "The relationships was updated successfully"
+          },
+          "403": {
+            "$ref": "#/components/responses/error403Forbidden"
+          },
+          "500": {
+            "$ref": "#/components/responses/error500Unknown"
+          },
+          "503": {
+            "$ref": "#/components/responses/error503Unavailable"
+          }
+        },
+        "tags": [
+          "people"
+        ]
+      }
+    },
+    "/people/{id}/{relation}": {
+      "get": {
+        "summary": "Fetches resource(s) associated with the target relationship",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/resourceId"
+          },
+          {
+            "$ref": "#/components/parameters/resourceRelation"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of related resources",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "jsonapi": {
+                      "$ref": "#/components/schemas/jsonapi"
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/meta"
+                    },
+                    "links": {
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/links"
+                        },
+                        {
+                          "$ref": "#/components/schemas/pagination"
+                        }
+                      ],
+                      "description": "Link members related to the primary data."
+                    },
+                    "included": {
+                      "default": [],
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/resource"
+                      },
+                      "description": "To reduce the number of HTTP requests, servers **MAY** allow responsesthat include related resources along with the requested primary resources.Such responses are called \"compound documents\"."
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/resource"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/error403Forbidden"
+          },
+          "503": {
+            "$ref": "#/components/responses/error503Unavailable"
+          }
+        },
+        "tags": [
+          "people"
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "meta": {
+        "type": "object",
+        "additionalProperties": {
+          "nullable": true
+        }
+      },
+      "link": {
+        "oneOf": [
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "description": "A string containing the link's URL."
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "A string containing the link's URL."
+                  },
+                  "meta": {
+                    "$ref": "#/components/schemas/meta"
+                  }
+                },
+                "required": [
+                  "href"
+                ],
+                "description": "A link **MUST** be represented as either: a string containing the link's URL or a link object."
+              }
+            ]
+          },
+          {}
+        ],
+        "description": "A `self` member, whose value is a URL for the relationship itself (a \"relationship URL\"). This URL allows the client to directly manipulate the relationship. For example, it would allow a client to remove an `author` from an `article` without deleting the people resource itself."
+      },
+      "relationshipSelfLink": {
+        "oneOf": [
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "description": "A string containing the link's URL."
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "A string containing the link's URL."
+                  },
+                  "meta": {
+                    "$ref": "#/components/schemas/meta"
+                  }
+                },
+                "required": [
+                  "href"
+                ],
+                "description": "A link **MUST** be represented as either: a string containing the link's URL or a link object."
+              }
+            ]
+          },
+          {}
+        ]
+      },
+      "relationshipLinks": {
+        "type": "object",
+        "additionalProperties": {
+          "oneOf": [
+            {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "A string containing the link's URL."
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "href": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "A string containing the link's URL."
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/meta"
+                    }
+                  },
+                  "required": [
+                    "href"
+                  ],
+                  "description": "A link **MUST** be represented as either: a string containing the link's URL or a link object."
+                }
+              ]
+            },
+            {}
+          ],
+          "description": "A `self` member, whose value is a URL for the relationship itself (a \"relationship URL\"). This URL allows the client to directly manipulate the relationship. For example, it would allow a client to remove an `author` from an `article` without deleting the people resource itself."
+        }
+      },
+      "links": {
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/link"
+        }
+      },
+      "pagination": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/link"
+              },
+              {
+                "type": "string",
+                "format": "null",
+                "nullable": true
+              }
+            ],
+            "nullable": true,
+            "description": "The next page of data"
+          },
+          "last": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/link"
+              },
+              {
+                "type": "string",
+                "format": "null",
+                "nullable": true
+              }
+            ],
+            "nullable": true,
+            "description": "The next page of data"
+          },
+          "prev": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/link"
+              },
+              {
+                "type": "string",
+                "format": "null",
+                "nullable": true
+              }
+            ],
+            "nullable": true,
+            "description": "The next page of data"
+          },
+          "next": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/link"
+              },
+              {
+                "type": "string",
+                "format": "null",
+                "nullable": true
+              }
+            ],
+            "nullable": true,
+            "description": "The next page of data"
+          }
+        },
+        "additionalProperties": true
+      },
+      "attributes": {
+        "type": "object",
+        "additionalProperties": {
+          "nullable": true,
+          "description": "Attributes may contain any valid JSON value."
+        }
+      },
+      "empty": {
+        "type": "string",
+        "format": "null",
+        "nullable": true
+      },
+      "linkage": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "minLength": 1,
+            "description": "A string containing the link's URL."
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "A string containing the link's URL."
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
+          }
+        },
+        "required": [
+          "type",
+          "id"
+        ]
+      },
+      "relationshipToOne": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/linkage"
+          },
+          {
+            "$ref": "#/components/schemas/empty"
+          }
+        ],
+        "nullable": true
+      },
+      "relationshipToMany": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/linkage"
+        }
+      },
+      "relationships": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "links": {
+              "$ref": "#/components/schemas/links"
+            },
+            "data": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/relationshipToOne"
+                },
+                {
+                  "$ref": "#/components/schemas/relationshipToMany"
+                }
+              ],
+              "nullable": true,
+              "description": "Member, whose value represents \"resource linkage\"."
+            },
+            "meta": {
+              "$ref": "#/components/schemas/meta"
+            }
+          }
+        }
+      },
+      "jsonapi": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "default": "1.0",
+            "type": "string"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
+          }
+        }
+      },
+      "error": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "A unique identifier for this particular occurrence of the problem."
+          },
+          "links": {
+            "$ref": "#/components/schemas/links"
+          },
+          "status": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The HTTP status code applicable to this problem, expressed as a string value."
+          },
+          "code": {
+            "type": "string",
+            "minLength": 1,
+            "description": "An application-specific error code, expressed as a string value."
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "description": "A short, human-readable summary of the problem.It **SHOULD NOT** change from occurrence to occurrence of the problem,except for purposes of localization."
+          },
+          "detail": {
+            "type": "string",
+            "minLength": 1,
+            "description": "A human-readable explanation specific to this occurrence of the problem."
+          },
+          "source": {
+            "type": "object",
+            "properties": {
+              "pointer": {
+                "type": "string",
+                "minLength": 1,
+                "description": "A JSON Pointer [RFC6901] to the associated entity in the request document[e.g. \"/data\" for a primary data object, or \"/data/attributes/title\" for a specific attribute]."
+              },
+              "parameter": {
+                "type": "string",
+                "minLength": 1,
+                "description": "A string containing the link's URL."
+              }
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
+          }
+        }
+      },
+      "resource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "A string containing the link's URL."
+          },
+          "type": {
+            "type": "string",
+            "minLength": 1,
+            "description": "A string containing the link's URL."
+          },
+          "attributes": {
+            "$ref": "#/components/schemas/attributes"
+          },
+          "relationships": {
+            "$ref": "#/components/schemas/relationships"
+          },
+          "links": {
+            "$ref": "#/components/schemas/links"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
+          }
+        },
+        "required": [
+          "id",
+          "type"
+        ]
+      },
+      "data": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/resource"
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/resource"
+            }
+          }
+        ],
+        "nullable": true
+      },
+      "info": {
+        "type": "object",
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/meta"
+          },
+          "links": {
+            "$ref": "#/components/schemas/links"
+          },
+          "jsonapi": {
+            "$ref": "#/components/schemas/jsonapi"
+          }
+        },
+        "required": [
+          "meta"
+        ]
+      },
+      "failure": {
+        "type": "object",
+        "properties": {
+          "jsonapi": {
+            "$ref": "#/components/schemas/jsonapi"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
+          },
+          "links": {
+            "$ref": "#/components/schemas/links"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/error"
+            }
+          }
+        },
+        "required": [
+          "errors"
+        ]
+      },
+      "success": {
+        "type": "object",
+        "properties": {
+          "jsonapi": {
+            "$ref": "#/components/schemas/jsonapi"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
+          },
+          "links": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/links"
+              },
+              {
+                "$ref": "#/components/schemas/pagination"
+              }
+            ],
+            "description": "Link members related to the primary data."
+          },
+          "data": {
+            "$ref": "#/components/schemas/data"
+          },
+          "included": {
+            "default": [],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/resource"
+            },
+            "description": "To reduce the number of HTTP requests, servers **MAY** allow responsesthat include related resources along with the requested primary resources.Such responses are called \"compound documents\"."
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "document": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/success"
+          },
+          {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/failure"
+              },
+              {
+                "$ref": "#/components/schemas/info"
+              }
+            ]
+          }
+        ]
+      },
+      "newResource": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "minLength": 1,
+            "description": "A string containing the link's URL."
+          },
+          "attributes": {
+            "$ref": "#/components/schemas/attributes"
+          },
+          "relationships": {
+            "$ref": "#/components/schemas/relationships"
+          },
+          "links": {
+            "$ref": "#/components/schemas/links"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "A string containing the link's URL."
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "peopleResource": {
+        "type": "object",
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/meta"
+          },
+          "links": {
+            "$ref": "#/components/schemas/links"
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "A string containing the link's URL."
+          },
+          "type": {
+            "type": "string",
+            "minLength": 1,
+            "description": "A string containing the link's URL."
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "firstname": {
+                "type": "string",
+                "description": "The person's first name."
+              },
+              "lastname": {
+                "type": "string",
+                "description": "The person's last name."
+              }
+            }
+          },
+          "relationships": {
+            "type": "object",
+            "properties": {
+              "articles": {
+                "type": "object",
+                "properties": {
+                  "links": {
+                    "$ref": "#/components/schemas/links"
+                  },
+                  "data": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/relationshipToOne"
+                      },
+                      {
+                        "$ref": "#/components/schemas/relationshipToMany"
+                      }
+                    ],
+                    "nullable": true,
+                    "description": "Member, whose value represents \"resource linkage\"."
+                  },
+                  "meta": {
+                    "$ref": "#/components/schemas/meta"
+                  }
+                },
+                "description": "The collection of articles written by this person."
+              }
+            }
+          }
+        },
+        "required": [
+          "id",
+          "type"
+        ]
+      }
+    },
+    "responses": {
+      "error409Conflict": {
+        "description": "",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "jsonapi": {
+                  "$ref": "#/components/schemas/jsonapi"
+                },
+                "meta": {
+                  "$ref": "#/components/schemas/meta"
+                },
+                "links": {
+                  "$ref": "#/components/schemas/links"
+                },
+                "errors": {
+                  "default": [
+                    {
+                      "status": "409",
+                      "code": "ECONFLICT",
+                      "title": "Resource already exists",
+                      "detail": "A resource with this id already exists on the server."
+                    }
+                  ],
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  }
+                }
+              }
+            },
+            "example": {
+              "jsonapi": {
+                "version": "1.0"
+              },
+              "errors": [
+                {
+                  "status": "409",
+                  "code": "ECONFLICT",
+                  "title": "Resource already exists",
+                  "detail": "A resource with this id already exists on the server."
+                }
+              ]
+            }
+          }
+        }
+      },
+      "error406NotAcceptable": {
+        "description": "",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "jsonapi": {
+                  "$ref": "#/components/schemas/jsonapi"
+                },
+                "meta": {
+                  "$ref": "#/components/schemas/meta"
+                },
+                "links": {
+                  "$ref": "#/components/schemas/links"
+                },
+                "errors": {
+                  "default": [
+                    {
+                      "status": "406",
+                      "code": "ENOTACCEPTABLE"
+                    }
+                  ],
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  }
+                }
+              }
+            },
+            "example": {
+              "jsonapi": {
+                "version": "1.0"
+              },
+              "errors": [
+                {
+                  "status": "406",
+                  "code": "ENOTACCEPTABLE"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "error403Forbidden": {
+        "description": "",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "jsonapi": {
+                  "$ref": "#/components/schemas/jsonapi"
+                },
+                "meta": {
+                  "$ref": "#/components/schemas/meta"
+                },
+                "links": {
+                  "$ref": "#/components/schemas/links"
+                },
+                "errors": {
+                  "default": [
+                    {
+                      "status": "403",
+                      "code": "EFORBIDDEN",
+                      "title": "Request not allowed",
+                      "detail": "The client request is not allowed on this resource."
+                    }
+                  ],
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  }
+                }
+              }
+            },
+            "example": {
+              "jsonapi": {
+                "version": "1.0"
+              },
+              "errors": [
+                {
+                  "status": "403",
+                  "code": "EFORBIDDEN",
+                  "title": "Request not allowed",
+                  "detail": "The client request is not allowed on this resource."
+                }
+              ]
+            }
+          }
+        }
+      },
+      "error503Unavailable": {
+        "description": "",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "jsonapi": {
+                  "$ref": "#/components/schemas/jsonapi"
+                },
+                "meta": {
+                  "$ref": "#/components/schemas/meta"
+                },
+                "links": {
+                  "$ref": "#/components/schemas/links"
+                },
+                "errors": {
+                  "default": [
+                    {
+                      "status": "503",
+                      "code": "EUNAVAILABLE",
+                      "title": "Resource temporarily unavailable",
+                      "detail": "The requested resource is temporarily unavailable."
+                    }
+                  ],
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  }
+                }
+              }
+            },
+            "example": {
+              "jsonapi": {
+                "version": "1.0"
+              },
+              "errors": [
+                {
+                  "status": "503",
+                  "code": "EUNAVAILABLE",
+                  "title": "Resource temporarily unavailable",
+                  "detail": "The requested resource is temporarily unavailable."
+                }
+              ]
+            }
+          }
+        }
+      },
+      "error404Foreign": {
+        "description": "",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "jsonapi": {
+                  "$ref": "#/components/schemas/jsonapi"
+                },
+                "meta": {
+                  "$ref": "#/components/schemas/meta"
+                },
+                "links": {
+                  "$ref": "#/components/schemas/links"
+                },
+                "errors": {
+                  "default": [
+                    {
+                      "status": "404",
+                      "code": "EFOREIGN",
+                      "title": "Relation is Foreign",
+                      "detail": "The requested relation is a foreign relation and cannot be accessed in this manner."
+                    }
+                  ],
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  }
+                }
+              }
+            },
+            "example": {
+              "jsonapi": {
+                "version": "1.0"
+              },
+              "errors": [
+                {
+                  "status": "404",
+                  "code": "EFOREIGN",
+                  "title": "Relation is Foreign",
+                  "detail": "The requested relation is a foreign relation and cannot be accessed in this manner."
+                }
+              ]
+            }
+          }
+        }
+      },
+      "error404NotFound": {
+        "description": "",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "jsonapi": {
+                  "$ref": "#/components/schemas/jsonapi"
+                },
+                "meta": {
+                  "$ref": "#/components/schemas/meta"
+                },
+                "links": {
+                  "$ref": "#/components/schemas/links"
+                },
+                "errors": {
+                  "default": [
+                    {
+                      "status": "404",
+                      "code": "ENOTFOUND",
+                      "title": "Resource not found",
+                      "detail": "The requested resource does not exist on this server."
+                    }
+                  ],
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  }
+                }
+              }
+            },
+            "example": {
+              "jsonapi": {
+                "version": "1.0"
+              },
+              "errors": [
+                {
+                  "status": "404",
+                  "code": "ENOTFOUND",
+                  "title": "Resource not found",
+                  "detail": "The requested resource does not exist on this server."
+                }
+              ]
+            }
+          }
+        }
+      },
+      "error500Unknown": {
+        "description": "",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "jsonapi": {
+                  "$ref": "#/components/schemas/jsonapi"
+                },
+                "meta": {
+                  "$ref": "#/components/schemas/meta"
+                },
+                "links": {
+                  "$ref": "#/components/schemas/links"
+                },
+                "errors": {
+                  "default": [
+                    {
+                      "status": "500",
+                      "code": "EUNKNOWN",
+                      "title": "Unknown Error",
+                      "detail": "An unknown error occurred. See stack trace for details."
+                    }
+                  ],
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  }
+                }
+              }
+            },
+            "example": {
+              "jsonapi": {
+                "version": "1.0"
+              },
+              "errors": [
+                {
+                  "status": "500",
+                  "code": "EUNKNOWN",
+                  "title": "Unknown Error",
+                  "detail": "An unknown error occurred. See stack trace for details."
+                }
+              ]
+            }
+          }
+        }
+      },
+      "relationResponse": {
+        "description": "A relationship linkage response",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "$ref": "#/components/schemas/success"
+            },
+            "example": {
+              "data": {
+                "id": "42",
+                "type": "articles"
+              }
+            }
+          }
+        }
+      },
+      "infoResponse": {
+        "description": "An informational response",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "$ref": "#/components/schemas/info"
+            },
+            "example": {
+              "meta": {
+                "success": true
+              }
+            }
+          }
+        }
+      },
+      "peopleResponse": {
+        "description": "The target people resource",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "jsonapi": {
+                  "$ref": "#/components/schemas/jsonapi"
+                },
+                "meta": {
+                  "$ref": "#/components/schemas/meta"
+                },
+                "links": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/links"
+                    },
+                    {
+                      "$ref": "#/components/schemas/pagination"
+                    }
+                  ],
+                  "description": "Link members related to the primary data."
+                },
+                "included": {
+                  "default": [],
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/resource"
+                  },
+                  "description": "To reduce the number of HTTP requests, servers **MAY** allow responsesthat include related resources along with the requested primary resources.Such responses are called \"compound documents\"."
+                },
+                "data": {
+                  "$ref": "#/components/schemas/peopleResource"
+                }
+              }
+            },
+            "example": {
+              "summary": "A people resource",
+              "value": {
+                "jsonapi": {
+                  "version": "1.0"
+                },
+                "data": {
+                  "id": "42",
+                  "type": "people",
+                  "attributes": {
+                    "firstname": "John",
+                    "lastname": "Doe"
+                  },
+                  "relationships": {
+                    "articles": {
+                      "meta": {
+                        "relation": "foreign",
+                        "belongsTo": "articles",
+                        "as": "author",
+                        "many": false,
+                        "readOnly": true
+                      }
+                    }
+                  }
+                },
+                "included": []
+              }
+            }
+          }
+        }
+      },
+      "peopleCollectionResponse": {
+        "description": "The list of people resources",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "jsonapi": {
+                  "$ref": "#/components/schemas/jsonapi"
+                },
+                "meta": {
+                  "$ref": "#/components/schemas/meta"
+                },
+                "links": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/links"
+                    },
+                    {
+                      "$ref": "#/components/schemas/pagination"
+                    }
+                  ],
+                  "description": "Link members related to the primary data."
+                },
+                "included": {
+                  "default": [],
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/resource"
+                  },
+                  "description": "To reduce the number of HTTP requests, servers **MAY** allow responsesthat include related resources along with the requested primary resources.Such responses are called \"compound documents\"."
+                },
+                "data": {
+                  "$ref": "#/components/schemas/peopleResource"
+                }
+              }
+            },
+            "example": {
+              "summary": "A people resource collection",
+              "value": {
+                "jsonapi": {
+                  "version": "1.0"
+                },
+                "data": [
+                  {
+                    "id": "42",
+                    "type": "people",
+                    "attributes": {
+                      "firstname": "John",
+                      "lastname": "Doe"
+                    },
+                    "relationships": {
+                      "articles": {
+                        "meta": {
+                          "relation": "foreign",
+                          "belongsTo": "articles",
+                          "as": "author",
+                          "many": false,
+                          "readOnly": true
+                        }
+                      }
+                    }
+                  }
+                ],
+                "included": []
+              }
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "resourceId": {
+        "name": "id",
+        "in": "path",
+        "schema": {
+          "type": "string",
+          "minLength": 1
+        },
+        "required": true,
+        "description": "Unique ID of the target resource"
+      },
+      "resourceRelation": {
+        "name": "relation",
+        "in": "path",
+        "schema": {
+          "type": "string",
+          "minLength": 1
+        },
+        "required": true,
+        "description": "Relationship associated with the resource"
+      },
+      "sort": {
+        "name": "sort",
+        "in": "query",
+        "description": "Sort resources per the JSON:API specification",
+        "style": "form",
+        "explode": false,
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "include": {
+        "name": "include",
+        "in": "query",
+        "description": "Fetch additional resources per the JSON:API specification",
+        "style": "form",
+        "explode": false,
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "filter": {
+        "name": "filter",
+        "in": "query",
+        "description": "Filters resources per the JSON:API specification",
+        "style": "deepObject",
+        "explode": true,
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "page": {
+        "name": "page",
+        "in": "query",
+        "description": "Paginates resource collection responses",
+        "style": "deepObject",
+        "explode": true,
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "fields": {
+        "name": "fields",
+        "in": "query",
+        "description": "Sparse fieldsets per the JSON:API specification",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "examples": {
+      "peopleExample": {
+        "summary": "A people resource",
+        "value": {
+          "id": "42",
+          "type": "people",
+          "attributes": {
+            "firstname": "John",
+            "lastname": "Doe"
+          },
+          "relationships": {
+            "articles": {
+              "meta": {
+                "relation": "foreign",
+                "belongsTo": "articles",
+                "as": "author",
+                "many": false,
+                "readOnly": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "requestBodies": {
+      "peopleRequest": {
+        "description": "A people request document",
+        "required": true,
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "#/components/schemas/peopleResource"
+                }
+              },
+              "required": [
+                "data"
+              ]
+            },
+            "example": {
+              "data": {
+                "id": "42",
+                "type": "people",
+                "attributes": {
+                  "firstname": "John",
+                  "lastname": "Doe"
+                },
+                "relationships": {
+                  "articles": {
+                    "meta": {
+                      "relation": "foreign",
+                      "belongsTo": "articles",
+                      "as": "author",
+                      "many": false,
+                      "readOnly": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "headers": {},
+    "securitySchemes": {},
+    "links": {},
+    "callbacks": {}
+  },
+  "tags": [
+    {
+      "name": "people",
+      "description": "The people's resource"
+    }
+  ],
+  "servers": []
+}

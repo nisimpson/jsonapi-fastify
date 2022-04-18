@@ -1,6 +1,1 @@
-*.log
-.DS_Store
-node_modules
-dist
-*.tsbuildinfo
-.vscode
+**/node_modules
