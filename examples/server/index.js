@@ -23,8 +23,8 @@ const server = jsonapiFastify({
       idGenerator: () => nanoid(),
       handler: MemoryHandler(),
       fields: {
-        firstname: schema.attribute({ validator: (z) => z.string() }),
-        lastname: schema.attribute({ validator: (z) => z.string() }),
+        firstname: schema.attribute({ type: (z) => z.string() }),
+        lastname: schema.attribute({ type: (z) => z.string() }),
         articles: schema.belongsToOne({
           resource: 'articles',
           as: 'author'

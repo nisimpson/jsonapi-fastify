@@ -7,7 +7,7 @@ export const photos = define((schema) => ({
   idGenerator: () => nanoid(),
   handler: MemoryHandler(),
   fields: {
-    category: schema.attribute({ validator: (z) => z.string() }),
+    category: schema.attribute({ type: (z) => z.string() }),
     photographer: schema.toOne('people'),
     owner: schema.toOne('people')
   },

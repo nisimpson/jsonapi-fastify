@@ -40,7 +40,7 @@ define((schema) => ({
   attributes: {
     title: schema.attribute(),
     url: schema.attribute({
-      validator: (zod) => zod.string().url(),
+      type: (zod) => zod.string().url(),
     }),
     category: schema.attribute({
       description: "The photo category",

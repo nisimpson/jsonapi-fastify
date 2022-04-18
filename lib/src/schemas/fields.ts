@@ -24,11 +24,11 @@ export type RelationalField = {
 
 export type FieldDefinition = PrimitiveField | RelationalField;
 
-function attribute(opts?: { description?: string; validator?: FieldValidator }): FieldDefinition {
+function attribute(opts?: { description?: string; type?: FieldValidator }): FieldDefinition {
   const schema: PrimitiveField = {
     kind: 'primitive',
-    schema: opts?.validator
-      ? opts.validator(z).describe(opts.description ?? '')
+    schema: opts?.type
+      ? opts.type(z).describe(opts.description ?? '')
       : z.unknown().describe(opts?.description ?? '')
   };
   return schema;

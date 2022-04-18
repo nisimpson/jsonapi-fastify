@@ -18,11 +18,11 @@ const people = define<Person>((schema) => ({
   fields: {
     firstname: schema.attribute({
       description: "The person's first name.",
-      validator: (z) => z.string()
+      type: (z) => z.string()
     }),
     lastname: schema.attribute({
       description: "The person's last name.",
-      validator: (z) => z.string()
+      type: (z) => z.string()
     }),
     articles: schema.belongsToOne('articles', {
       description: 'The collection of articles written by this person.',

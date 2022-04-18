@@ -16,7 +16,7 @@ const comments = define<Comment>((schema) => ({
   idGenerator: () => nanoid(),
   defaultPageSize: 100,
   fields: {
-    body: schema.attribute({ validator: (z) => z.string() }),
+    body: schema.attribute({ type: (z) => z.string() }),
     author: schema.toOne('people'),
     article: schema.toOne('articles')
   },

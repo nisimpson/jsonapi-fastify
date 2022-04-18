@@ -13,7 +13,7 @@ const tags = define<Tag>((schema) => ({
   idGenerator: () => nanoid(),
   handler: TagHandler,
   fields: {
-    value: schema.attribute({ validator: (z) => z.string() })
+    value: schema.attribute({ type: (z) => z.string() })
   },
   allowsIdOnCreate: true,
   defaultPageSize: 100,

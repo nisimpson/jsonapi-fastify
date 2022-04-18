@@ -19,10 +19,10 @@ const articles = define<Article>((schema) => ({
   idGenerator: () => nanoid(),
   defaultPageSize: 100,
   fields: {
-    title: schema.attribute({ validator: (z) => z.string() }),
-    body: schema.attribute({ validator: (z) => z.string() }),
-    created: schema.attribute({ validator: (z) => z.string() }),
-    updated: schema.attribute({ validator: (z) => z.string() }),
+    title: schema.attribute({ type: (z) => z.string() }),
+    body: schema.attribute({ type: (z) => z.string() }),
+    created: schema.attribute({ type: (z) => z.string() }),
+    updated: schema.attribute({ type: (z) => z.string() }),
     author: schema.toOne('people'),
     tags: schema.toMany('tags')
   },

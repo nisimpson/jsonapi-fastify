@@ -63,7 +63,7 @@ const people = define((schema) => ({
     }),
     age: schema.attribute({
       description: "A person's age, in years.",
-      validator: (zod) => zod.number().nonnegative(),
+      type: (zod) => zod.number().nonnegative(),
     }),
     children: schema.belongsToOne('people', {
       description: "A person's children.",
