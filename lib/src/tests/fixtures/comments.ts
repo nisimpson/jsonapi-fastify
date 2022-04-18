@@ -11,14 +11,14 @@ type Comment = {
 
 export const CommentHandler = TestHandler<Comment>({});
 
-const comments = define<Comment>((field) => ({
+const comments = define<Comment>((schema) => ({
   resource: 'comments',
   idGenerator: () => nanoid(),
   defaultPageSize: 100,
   fields: {
-    body: field((z) => z.string()),
-    author: field.toOne('people'),
-    article: field.toOne('articles')
+    body: schema.attribute({ validator: (z) => z.string() }),
+    author: schema.toOne('people'),
+    article: schema.toOne('articles')
   },
   handlers: CommentHandler,
   examples: [

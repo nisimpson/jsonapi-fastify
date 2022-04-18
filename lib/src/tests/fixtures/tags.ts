@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { define } from '../../index'
+import { define } from '../../index';
 import TestHandler from './TestHandler';
 
 type Tag = {
@@ -8,12 +8,12 @@ type Tag = {
 
 export const TagHandler = TestHandler<Tag>({});
 
-const tags = define<Tag>((field) => ({
+const tags = define<Tag>((schema) => ({
   resource: 'tags',
   idGenerator: () => nanoid(),
   handlers: TagHandler,
   fields: {
-    value: field((z) => z.string())
+    value: schema.attribute({ validator: (z) => z.string() })
   },
   allowsIdOnCreate: true,
   defaultPageSize: 100,

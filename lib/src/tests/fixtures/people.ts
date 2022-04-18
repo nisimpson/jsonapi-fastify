@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { define } from '../../index'
+import { define } from '../../index';
 import TestHandler from './TestHandler';
 
 type Person = {
@@ -10,15 +10,21 @@ type Person = {
 
 export const PersonHandler = TestHandler<Person>({});
 
-const people = define<Person>((field) => ({
+const people = define<Person>((schema) => ({
   resource: 'people',
   description: "The people's resource",
   idGenerator: () => nanoid(),
   handlers: PersonHandler,
   fields: {
-    firstname: field((z) => z.string().describe("The person's first name.")),
-    lastname: field((z) => z.string().describe("The person's last name.")),
-    articles: field.belongsToOne({
+    firstname: schema.attribute({
+      description: "The person's first name.",
+      validator: (z) => z.string()
+    }),
+    lastname: schema.attribute({
+      description: "The person's last name.",
+      validator: (z) => z.string()
+    }),
+    articles: schema.belongsToOne({
       description: 'The collection of articles written by this person.',
       resource: 'articles',
       as: 'author'

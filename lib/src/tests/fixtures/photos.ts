@@ -1,15 +1,15 @@
 import { MemoryHandler } from '@handlers/MemoryHandler';
 import { nanoid } from 'nanoid';
-import { define } from '../../index'
+import { define } from '../../index';
 
-export const photos = define((field) => ({
+export const photos = define((schema) => ({
   resource: 'photos',
   idGenerator: () => nanoid(),
   handlers: MemoryHandler(),
   fields: {
-    category: field((z) => z.string()),
-    photographer: field.toOne('people'),
-    owner: field.toOne('people')
+    category: schema.attribute({ validator: (z) => z.string() }),
+    photographer: schema.toOne('people'),
+    owner: schema.toOne('people')
   },
   examples: [
     {

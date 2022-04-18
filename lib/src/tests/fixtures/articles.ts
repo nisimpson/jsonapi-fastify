@@ -1,6 +1,6 @@
 import { ToOneRelation, ToManyRelation } from '@typings/jsonapi-fastify';
 import { nanoid } from 'nanoid';
-import { define } from '../../index'
+import { define } from '../../index';
 import TestHandler from './TestHandler';
 
 type Article = {
@@ -14,17 +14,17 @@ type Article = {
 
 export const ArticleHandler = TestHandler<Article>({});
 
-const articles = define<Article>((field) => ({
+const articles = define<Article>((schema) => ({
   resource: 'articles',
   idGenerator: () => nanoid(),
   defaultPageSize: 100,
   fields: {
-    title: field((z) => z.string()),
-    body: field((z) => z.string()),
-    created: field((z) => z.string()),
-    updated: field((z) => z.string()),
-    author: field.toOne('people'),
-    tags: field.toMany('tags')
+    title: schema.attribute({ validator: (z) => z.string() }),
+    body: schema.attribute({ validator: (z) => z.string() }),
+    created: schema.attribute({ validator: (z) => z.string() }),
+    updated: schema.attribute({ validator: (z) => z.string() }),
+    author: schema.toOne('people'),
+    tags: schema.toMany('tags')
   },
   handlers: ArticleHandler,
   examples: [
