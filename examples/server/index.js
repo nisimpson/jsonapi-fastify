@@ -21,7 +21,7 @@ const server = jsonapiFastify({
     define((schema) => ({
       resource: 'people',
       idGenerator: () => nanoid(),
-      handlers: MemoryHandler(),
+      handler: MemoryHandler(),
       fields: {
         firstname: schema.attribute({ validator: (z) => z.string() }),
         lastname: schema.attribute({ validator: (z) => z.string() }),

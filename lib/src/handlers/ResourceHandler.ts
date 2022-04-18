@@ -54,7 +54,7 @@ export function ResourceHandler<TResource = any>(
       if (options.update && operation === 'update') {
         return options.update(params);
       }
-      if (operation.includes('relationship')) {
+      if (operation.includes('relationship') && options.relationships) {
         const relation = params.request.params.relation!;
         const relationships = options.relationships ?? {};
         const handler = relationships[relation];

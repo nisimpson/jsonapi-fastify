@@ -10,14 +10,14 @@ This framework solves the challenges of json:api without coupling us to any one 
 
 A config driven approach to building an API enables:
 
-- Enforced json:api responses
-- Automatic GraphQL schema generation
-- Request validation
-- Payload validation
-- Automatic documentation generation
-- Automatic inclusions
-- Automatic routing
-- Automatic handling of relationships
+- [x] Enforced json:api responses
+- [ ] Automatic GraphQL schema generation (coming soon)
+- [x] Request validation
+- [x] Payload validation
+- [x] Automatic documentation generation
+- [x] Automatic inclusions
+- [x] Automatic routing
+- [x] Automatic handling of relationships
 
 Ultimately, the only things users of this framework need to care about are:
 
@@ -39,12 +39,12 @@ Ultimately, the only things users of this framework need to care about are:
 
 ## Full documentation
 
-- [Suggested Project Structure](docs/guides/suggested-project-structure.md)
-- [Configuring jsonapi-fastify](docs/guides/configuration.md)
-- [Automatic OpenAPI Generation](docs/guides/openapi.md)
-- [Defining Resources](docs/guides/resources.md)
-- [Foreign Key Relations](docs/guides/foreign-relations.md)
-- [Resource Handlers](docs/guides/handlers.md)
+- [Suggested Project Structure](docs/suggested-project-structure.md)
+- [Configuring jsonapi-fastify](docs/configuration.md)
+- [Automatic OpenAPI Generation](docs/openapi.md)
+- [Defining Resources](docs/resources.md)
+- [Foreign Key Relations](docs/foreign-relations.md)
+- [Resource Handlers](docs/handlers.md)
 
 ## Quick Start: Server
 
@@ -72,7 +72,7 @@ const server = jsonapiFastify({
     define((schema) => ({
       resource: "people",
       idGenerator: () => nanoid(),
-      handlers: MemoryHandler(),
+      handler: MemoryHandler(),
       fields: {
         firstname: schema.attribute(),
         lastname: schema.attribute(),
@@ -161,7 +161,7 @@ const app = jsonapiFastify({
     define((schema) => ({
       resource: "people",
       idGenerator: () => nanoid(),
-      handlers: MemoryHandler(),
+      handler: MemoryHandler(),
       fields: {
         firstname: schema.attribute({
           description: "The person's first name",

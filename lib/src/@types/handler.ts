@@ -7,7 +7,6 @@ export type PageData = {
 };
 
 export interface HandlerResult<TResource, TError = unknown, TPage = never> {
-  error?: TError[];
   result?: TResource;
   page?: TPage;
   meta?: Meta;
@@ -174,21 +173,79 @@ export type DeleteResponse<TError> = Pick<Response<never, TError>, 'error' | 'no
 export type DeleteResult<TError> = HandlerResult<never, TError>;
 
 export type DeleteFunction<TRequest, TError> = (params: {
+  /**
+   * The incoming request object.
+   */
   request: TRequest;
+  /**
+   * The response object. Contains helper functions for sending
+   * valid responses.
+   */
   response: DeleteResponse<TError>;
 }) => Promise<DeleteResult<TError>>;
 
 export type HandlerOperation = 'create' | 'search' | 'find' | 'update' | 'delete';
 
+/**
+ * Interface for handling incoming jsonapi requests.
+ *
+ * @type TConfig The handler or resource configuration type.
+ * @type TRequest The handler request type.
+ * @type TResource The resource target type for this handler.
+ * @type TError The handler error object type.
+ * @type TContext The context object type.
+ */
 export interface Handler<TConfig, TRequest, TResource, TError, TContext> {
+  /**
+   * Invoked whenever a request is received. Useful for allocating memory,
+   * connecting to databases, etc.
+   *
+   * @param config The resource handler configuration.
+   * @param context The current jsonapi context.
+   */
   initialize(config: TConfig, context: TContext): unknown;
+  /**
+   * Determines if the request has been authorized by the server. If the request
+   * is rejected, subsequent processing is halted and a 401 unauthorized response
+   * is returned to the client.
+   *
+   * @params operation The requested operation.
+   * @params request The incoming fastify request object.
+   * @returns true if the request is authorized; false otherwise.
+   */
   authorize?: (operation: HandlerOperation, request: FastifyRequest) => Promise<boolean>;
+  /**
+   * Invoked when a request to create a new resource is received.
+   */
   create?: CreateFunction<TRequest, TResource, TError>;
+  /**
+   * Invoked when a request to search for resources that match specified
+   * criteria is received.
+   */
   search?: SearchFunction<TRequest, TResource, TError>;
+  /**
+   * Invoked when a request to find a specific resource is received.
+   */
   find?: FindFunction<TRequest, TResource, TError>;
+  /**
+   * Invoked when a request to update a resource or its relationships
+   * is received.
+   */
   update?: UpdateFunction<TRequest, TResource, TError>;
+  /**
+   * Invoked when a request to delete a resource is received.
+   */
   delete?: DeleteFunction<TRequest, TError>;
+  /**
+   * Invoked when server.close() is called. Useful for performing any cleanup
+   * operations.
+   */
   close(): unknown;
+  /**
+   * Determines if the handler is ready to process the specified operation.
+   *
+   * @param operation The handler operation requested.
+   */
   ready(operation: HandlerOperation): boolean;
   allowSort: boolean;
   allowFilter: boolean;

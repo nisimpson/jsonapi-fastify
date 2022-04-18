@@ -14,7 +14,7 @@ const people = define<Person>((schema) => ({
   resource: 'people',
   description: "The people's resource",
   idGenerator: () => nanoid(),
-  handlers: PersonHandler,
+  handler: PersonHandler,
   fields: {
     firstname: schema.attribute({
       description: "The person's first name.",

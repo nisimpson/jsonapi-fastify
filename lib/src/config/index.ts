@@ -25,7 +25,7 @@ function setContentType(reply: FastifyReply) {
 function initializeHandlers(reply: FastifyReply) {
   const jsonapi = reply.jsonapi;
   for (const definition of Object.values(jsonapi.definitions)) {
-    definition.handlers.initialize(definition, jsonapi);
+    definition.handler.initialize(definition, jsonapi);
   }
 }
 

@@ -43,7 +43,7 @@ const invoke = (
     const data: JsonapiResource = { id: context.params(request).id!, type: def.resource };
     data[opts.relation] = context.resource;
 
-    const response = await def.handlers.update!({
+    const response = await def.handler.update!({
       request: context.request!,
       operation: opts.operation,
       data,

@@ -47,7 +47,9 @@ export function registerRoutes(fastify: FastifyInstance, options: JsonapiFastify
   fastify.log.debug('creating route definitions');
 
   // openapi doc
-  fastify.get('/openapi.json', openapi());
+  if (options.openapi) {
+    fastify.get('/openapi.json', openapi());
+  }
 
   for (const definition of options.definitions) {
     fastify.log.trace(`creating route definition: ${definition.resource}`);

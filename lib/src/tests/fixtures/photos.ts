@@ -5,7 +5,7 @@ import { define } from '../../index';
 export const photos = define((schema) => ({
   resource: 'photos',
   idGenerator: () => nanoid(),
-  handlers: MemoryHandler(),
+  handler: MemoryHandler(),
   fields: {
     category: schema.attribute({ validator: (z) => z.string() }),
     photographer: schema.toOne('people'),

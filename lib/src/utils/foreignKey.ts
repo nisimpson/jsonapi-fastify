@@ -31,7 +31,7 @@ export async function foreignKeySearch(
     foreignKeys = relationData === null ? [] : [relationData.id];
   }
 
-  const response = await relationDef.handlers.search?.({
+  const response = await relationDef.handler.search?.({
     request: {
       ...opts.context.request!,
       params: {

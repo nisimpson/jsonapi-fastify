@@ -26,7 +26,7 @@ const articles = define<Article>((schema) => ({
     author: schema.toOne('people'),
     tags: schema.toMany('tags')
   },
-  handlers: ArticleHandler,
+  handler: ArticleHandler,
   examples: [
     {
       id: '1',

@@ -33,7 +33,7 @@ function invokeHandler(definition: JsonapiResourceDefinition): FastifyAsyncCallb
     const context = reply.jsonapi;
     const data = context.resource as JsonapiResource;
     data.id = context.params(request).id!;
-    context.response = await definition.handlers.update!({
+    context.response = await definition.handler.update!({
       request: context.request!,
       operation: 'update',
       data,

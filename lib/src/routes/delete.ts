@@ -27,7 +27,7 @@ const invoke = (def: JsonapiResourceDefinition): FastifyAsyncCallback => {
   return async (params) => {
     const { reply } = params;
     const context = reply.jsonapi;
-    context.response = await def.handlers.delete!({
+    context.response = await def.handler.delete!({
       request: context.request!,
       response: {
         ok: (meta) => {

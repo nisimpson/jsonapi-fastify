@@ -20,7 +20,7 @@ const comments = define<Comment>((schema) => ({
     author: schema.toOne('people'),
     article: schema.toOne('articles')
   },
-  handlers: CommentHandler,
+  handler: CommentHandler,
   examples: [
     {
       id: '1',

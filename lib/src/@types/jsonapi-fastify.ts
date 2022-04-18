@@ -72,14 +72,14 @@ export type JsonapiResourceDefinition<TResource = any> = {
   namespace?: string;
   description?: string;
   resource: string;
-  handlers: JsonapiHandler<TResource>;
+  handler: JsonapiHandler<TResource>;
   fields: JsonapiResourceAttributes<TResource>;
   examples: JsonapiResource<TResource>[];
   searchParams?: Partial<Attributes<TResource>>;
   allowsIdOnCreate?: boolean;
   createsResourceAsync?: boolean;
   defaultPageSize: number;
-  idGenerator: () => string;
+  idGenerator?: () => string;
 };
 
 export interface JsonapiFastifyOptions extends FastifyPluginOptions {

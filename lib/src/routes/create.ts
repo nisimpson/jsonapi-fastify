@@ -35,14 +35,14 @@ const schema: RouteSchema = (definition) => ({
 
 function checkForConflicts({
   resource: type,
-  handlers
+  handler
 }: JsonapiResourceDefinition): FastifyAsyncCallback {
   return async (params) => {
     const jsonapi = params.reply.jsonapi;
     const resource = jsonapi.resource as JsonapiResource;
     if (resource?.id) {
       // check if a resource exists with the client provided id
-      if (handlers.find === undefined) {
+      if (handler.find === undefined) {
         params.reply.log.warn('cannot check for conflicts without a find handler', {
           resource: type
         });
@@ -57,7 +57,7 @@ function checkForConflicts({
           id: resource.id
         }
       };
-      const { result } = await handlers.find({
+      const { result } = await handler.find({
         request,
         response: {
           ok: (result) => ({ result }),
@@ -81,8 +81,8 @@ function invokeHandler(definition: JsonapiResourceDefinition): FastifyAsyncCallb
   return async ({ request, reply }) => {
     const jsonapi = reply.jsonapi;
     const resource = jsonapi.resource as JsonapiResource;
-    resource.id = resource.id ?? definition.idGenerator();
-    jsonapi.response = await definition.handlers.create!({
+    resource.id = resource.id ?? definition.idGenerator?.() ?? '';
+    jsonapi.response = await definition.handler.create!({
       request: jsonapi.request!,
       data: resource,
       response: {

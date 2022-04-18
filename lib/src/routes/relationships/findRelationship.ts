@@ -31,7 +31,7 @@ const invoke = (def: JsonapiResourceDefinition, relation: string): FastifyAsyncC
   return async (params) => {
     const { reply } = params;
     const context = reply.jsonapi;
-    context.response = await def.handlers.find!({
+    context.response = await def.handler.find!({
       request: context.request!,
       response: {
         ok: (result) => {

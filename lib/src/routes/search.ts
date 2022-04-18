@@ -36,7 +36,7 @@ function invoke(def: JsonapiResourceDefinition): FastifyAsyncCallback {
       request.query.page = request.query.page ?? def.defaultPageSize;
     }
 
-    context.response = await def.handlers.search!({
+    context.response = await def.handler.search!({
       request,
       response: {
         ok(result, page) {
@@ -72,7 +72,7 @@ function sendResponse(def: JsonapiResourceDefinition): FastifyAsyncCallback {
 
     const { prev, next } = serializePaginationLinks(page, {
       type,
-      style: def.handlers.pagination,
+      style: def.handler.pagination,
       prefix: context.baseUrl,
       limit: context.request!.query.page!.limit!
     });

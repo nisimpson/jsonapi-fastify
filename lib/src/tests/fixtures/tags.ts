@@ -11,7 +11,7 @@ export const TagHandler = TestHandler<Tag>({});
 const tags = define<Tag>((schema) => ({
   resource: 'tags',
   idGenerator: () => nanoid(),
-  handlers: TagHandler,
+  handler: TagHandler,
   fields: {
     value: schema.attribute({ validator: (z) => z.string() })
   },
