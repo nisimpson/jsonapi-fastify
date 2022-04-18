@@ -118,7 +118,7 @@ function sendResponse(def: JsonapiResourceDefinition): FastifyAsyncCallback {
     // and the requested resource has been created successfully,
     // the server returns 204 No Content status code if no response document.
 
-    if (def.allowClientIdOnCreate && !hasResult) {
+    if (def.allowsIdOnCreate && !hasResult) {
       reply.status(204).send();
       return { request, reply };
     }

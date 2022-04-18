@@ -15,7 +15,7 @@ const tags = define<Tag>((field) => ({
   fields: {
     value: field((z) => z.string())
   },
-  allowClientIdOnCreate: true,
+  allowsIdOnCreate: true,
   defaultPageSize: 100,
   examples: [
     {

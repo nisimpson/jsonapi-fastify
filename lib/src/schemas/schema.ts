@@ -400,7 +400,7 @@ const request = {
         .extend({
           id: nonEmptyString.optional().refine(
             (val) => {
-              if (opts?.create && def.allowClientIdOnCreate) {
+              if (opts?.create && def.allowsIdOnCreate) {
                 return true;
               }
               return val === undefined;

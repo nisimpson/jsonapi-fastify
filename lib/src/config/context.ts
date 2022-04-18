@@ -21,9 +21,6 @@ export default function createJsonapiContext(
     params.reply.jsonapi = {
       options,
       definitions: resources,
-      errors: [],
-      statusCode: 200,
-      serializerOptions: {},
       log: fastify.log,
       baseUrl: options.urlPrefixAlias ?? '',
       response: {},

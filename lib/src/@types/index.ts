@@ -76,7 +76,7 @@ export type JsonapiResourceDefinition<TResource = any> = {
   fields: JsonapiResourceAttributes<TResource>;
   examples: JsonapiResource<TResource>[];
   searchParams?: Partial<Attributes<TResource>>;
-  allowClientIdOnCreate?: boolean;
+  allowsIdOnCreate?: boolean;
   createsResourceAsync?: boolean;
   defaultPageSize: number;
   idGenerator: () => string;
@@ -97,16 +97,10 @@ export interface JsonapiFastifyOptions extends FastifyPluginOptions {
 type JsonapiResult = JsonapiResource | JsonapiResource[];
 type JsonapiResponse = HandlerResult<JsonapiResult, JsonapiError, any>;
 
-type Pagination =
-  | { style: 'cursor'; prev?: string; next?: string }
-  | { style: 'offset'; prev?: number; next?: number };
-
 export type JsonapiContext = {
   options: JsonapiFastifyOptions;
   request?: JsonapiRequest;
   response: JsonapiResponse;
-  statusCode: number;
-  pagination?: Pagination;
   included?: JsonapiResource[];
   resource?: JsonapiResource | JsonapiRelation;
   definitions: {
