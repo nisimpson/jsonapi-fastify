@@ -116,7 +116,7 @@ export function buildSerializerFromRequest(request: FastifyRequest) {
       }
       if (current) {
         return {
-          relation: 'primay',
+          relation: 'primary',
           readOnly: false,
           many: schema.relation.association === 'many'
         };

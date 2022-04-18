@@ -22,14 +22,14 @@ const app = jsonapiFastify({
     },
   },
   definitions: [
-    define((field) => ({
+    define((schema) => ({
       resource: "people",
       idGenerator: () => nanoid(),
       handlers: MemoryHandler(),
       fields: {
-        firstname: field((z) => z.string()),
-        lastname: field((z) => z.string()),
-        articles: field.belongsToOne({
+        firstname: schema.attribute({ validator: (z) => z.string() }),
+        lastname: schema.attribute({ validator: (z) => z.string() }),
+        articles: schema.belongsToOne({
           resource: "articles",
           as: "author",
         }),
