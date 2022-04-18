@@ -5,7 +5,6 @@ import {
   endRoute,
   FastifyAsyncCallback,
   findIncludes,
-  foreignKeySearch,
   sequence,
   verifyHandler,
   verifySparseFieldsets
@@ -16,6 +15,7 @@ import { documents } from '@schemas/schema';
 import { JsonapiResourceDefinition } from '@typings/jsonapi-fastify';
 import { SingleResourceDocument } from '@typings/jsonapi-spec';
 import { JsonapiFastifyError } from '@utils/error';
+import { foreignKeySearch } from '@utils/foreignKey';
 import serializer from '@utils/serializer';
 import { RouteSchema, RouteConfiguration } from '..';
 

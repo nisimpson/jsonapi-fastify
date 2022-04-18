@@ -4,7 +4,7 @@ import { isPrimitiveDefinition } from '@schemas/fields';
 import { MEDIA_TYPE } from '@schemas/schema';
 import { JsonapiFastifyOptions, JsonapiResourceDefinition } from '@typings/jsonapi-fastify';
 import { FastifyInstance, LightMyRequestResponse } from 'fastify';
-import { server } from '../../index';
+import jsonapiFastify from '../../index';
 import articles, { ArticleHandler } from './articles';
 import comments, { CommentHandler } from './comments';
 import people, { PersonHandler } from './people';
@@ -30,7 +30,7 @@ export function build(opts?: JsonapiFastifyOptions): FastifyInstance {
     opts.test = true;
     opts.loggerLevel = loggerLevel;
   }
-  const instance = server(
+  const instance = jsonapiFastify(
     opts ?? {
       test: true,
       loggerLevel,
