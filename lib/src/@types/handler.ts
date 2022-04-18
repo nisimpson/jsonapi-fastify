@@ -1,3 +1,4 @@
+import { FastifyRequest } from 'fastify';
 import { Meta } from 'src/@types/jsonapi-spec';
 
 export type PageData = {
@@ -181,6 +182,7 @@ export type HandlerOperation = 'create' | 'search' | 'find' | 'update' | 'delete
 
 export interface Handler<TConfig, TRequest, TResource, TError, TContext> {
   initialize(config: TConfig, context: TContext): unknown;
+  authorize?: (operation: HandlerOperation, request: FastifyRequest) => Promise<boolean>;
   create?: CreateFunction<TRequest, TResource, TError>;
   search?: SearchFunction<TRequest, TResource, TError>;
   find?: FindFunction<TRequest, TResource, TError>;

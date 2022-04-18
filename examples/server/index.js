@@ -1,6 +1,7 @@
-const jsonapi = require('jsonapi-fastify');
+const { jsonapiFastify, define, MemoryHandler } = require('jsonapi-fastify');
+const { nanoid } = require('nanoid');
 
-const server = jsonapi.server({
+const server = jsonapiFastify({
   openapi: {
     info: {
       version: '1.0.0',
@@ -17,10 +18,10 @@ const server = jsonapi.server({
     }
   },
   definitions: [
-    jsonapi.define((schema) => ({
+    define((schema) => ({
       resource: 'people',
       idGenerator: () => nanoid(),
-      handlers: jsonapi.MemoryHandler(),
+      handlers: MemoryHandler(),
       fields: {
         firstname: schema.attribute({ validator: (z) => z.string() }),
         lastname: schema.attribute({ validator: (z) => z.string() }),

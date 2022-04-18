@@ -63,7 +63,7 @@ export class JsonapiFastifyError extends Error {
 export function setErrorHandling(fastify: FastifyInstance): void {
   fastify.log.debug('adding 404 not found handler');
   fastify.setNotFoundHandler(async (_request, reply) => {
-    reply.status(404).send(documents.error404NotFound.parse({}));
+    reply.status(404).send(documents.errors.error404NotFound.parse({}));
   });
 
   fastify.log.debug('adding error handler');
@@ -80,7 +80,7 @@ export function setErrorHandling(fastify: FastifyInstance): void {
       const statusCode = Number(formattedErrors[0].status);
       reply.status(statusCode).send({ errors: formattedErrors });
     } else {
-      reply.send(documents.error500Unknown.parse({}));
+      reply.send(documents.errors.error500Unknown.parse({}));
     }
     reply.sent = true;
   });

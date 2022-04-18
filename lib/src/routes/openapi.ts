@@ -198,19 +198,17 @@ export function generateOpenapiDocument(options: JsonapiFastifyOptions): OpenAPI
     });
 
   // add error responses
-  for (const [key, value] of Object.entries(documents)) {
-    if (key.startsWith('error')) {
-      const errorSchema = generateSchema(value as any);
-      builder.addResponse(key, {
-        description: errorSchema.description || '',
-        content: {
-          [MEDIA_TYPE]: {
-            schema: errorSchema,
-            example: (value as any).parse({})
-          }
+  for (const [key, value] of Object.entries(documents.errors)) {
+    const errorSchema = generateSchema(value as any);
+    builder.addResponse(key, {
+      description: errorSchema.description || '',
+      content: {
+        [MEDIA_TYPE]: {
+          schema: errorSchema,
+          example: (value as any).parse({})
         }
-      });
-    }
+      }
+    });
   }
 
   // add basic responses
@@ -338,11 +336,11 @@ export function generateOpenapiDocument(options: JsonapiFastifyOptions): OpenAPI
           },
           {
             status: 500,
-            schema: { $ref: responseRef(documents.error500Unknown) }
+            schema: { $ref: responseRef(documents.errors.error500Unknown) }
           },
           {
             status: 503,
-            schema: { $ref: responseRef(documents.error503Unavailable) }
+            schema: { $ref: responseRef(documents.errors.error503Unavailable) }
           }
         ]
       }),
@@ -369,19 +367,19 @@ export function generateOpenapiDocument(options: JsonapiFastifyOptions): OpenAPI
           },
           {
             status: 403,
-            schema: { $ref: responseRef(documents.error403Forbidden) }
+            schema: { $ref: responseRef(documents.errors.error403Forbidden) }
           },
           {
             status: 409,
-            schema: { $ref: responseRef(documents.error409Conflict) }
+            schema: { $ref: responseRef(documents.errors.error409Conflict) }
           },
           {
             status: 500,
-            schema: { $ref: responseRef(documents.error500Unknown) }
+            schema: { $ref: responseRef(documents.errors.error500Unknown) }
           },
           {
             status: 503,
-            schema: { $ref: responseRef(documents.error503Unavailable) }
+            schema: { $ref: responseRef(documents.errors.error503Unavailable) }
           }
         ]
       })
@@ -398,16 +396,16 @@ export function generateOpenapiDocument(options: JsonapiFastifyOptions): OpenAPI
           },
           {
             status: 403,
-            schema: { $ref: responseRef(documents.error403Forbidden) }
+            schema: { $ref: responseRef(documents.errors.error403Forbidden) }
           },
 
           {
             status: 500,
-            schema: { $ref: responseRef(documents.error500Unknown) }
+            schema: { $ref: responseRef(documents.errors.error500Unknown) }
           },
           {
             status: 503,
-            schema: { $ref: responseRef(documents.error503Unavailable) }
+            schema: { $ref: responseRef(documents.errors.error503Unavailable) }
           }
         ]
       }),
@@ -432,19 +430,19 @@ export function generateOpenapiDocument(options: JsonapiFastifyOptions): OpenAPI
           },
           {
             status: 403,
-            schema: { $ref: responseRef(documents.error403Forbidden) }
+            schema: { $ref: responseRef(documents.errors.error403Forbidden) }
           },
           {
             status: 409,
-            schema: { $ref: responseRef(documents.error409Conflict) }
+            schema: { $ref: responseRef(documents.errors.error409Conflict) }
           },
           {
             status: 500,
-            schema: { $ref: responseRef(documents.error500Unknown) }
+            schema: { $ref: responseRef(documents.errors.error500Unknown) }
           },
           {
             status: 503,
-            schema: { $ref: responseRef(documents.error503Unavailable) }
+            schema: { $ref: responseRef(documents.errors.error503Unavailable) }
           }
         ]
       }),
@@ -469,15 +467,15 @@ export function generateOpenapiDocument(options: JsonapiFastifyOptions): OpenAPI
           },
           {
             status: 403,
-            schema: { $ref: responseRef(documents.error403Forbidden) }
+            schema: { $ref: responseRef(documents.errors.error403Forbidden) }
           },
           {
             status: 500,
-            schema: { $ref: responseRef(documents.error500Unknown) }
+            schema: { $ref: responseRef(documents.errors.error500Unknown) }
           },
           {
             status: 503,
-            schema: { $ref: responseRef(documents.error503Unavailable) }
+            schema: { $ref: responseRef(documents.errors.error503Unavailable) }
           }
         ]
       })
@@ -505,15 +503,15 @@ export function generateOpenapiDocument(options: JsonapiFastifyOptions): OpenAPI
           },
           {
             status: 403,
-            schema: { $ref: responseRef(documents.error403Forbidden) }
+            schema: { $ref: responseRef(documents.errors.error403Forbidden) }
           },
           {
             status: 500,
-            schema: { $ref: responseRef(documents.error500Unknown) }
+            schema: { $ref: responseRef(documents.errors.error500Unknown) }
           },
           {
             status: 503,
-            schema: { $ref: responseRef(documents.error503Unavailable) }
+            schema: { $ref: responseRef(documents.errors.error503Unavailable) }
           }
         ]
       }),
@@ -543,15 +541,15 @@ export function generateOpenapiDocument(options: JsonapiFastifyOptions): OpenAPI
           },
           {
             status: 403,
-            schema: { $ref: responseRef(documents.error403Forbidden) }
+            schema: { $ref: responseRef(documents.errors.error403Forbidden) }
           },
           {
             status: 500,
-            schema: { $ref: responseRef(documents.error500Unknown) }
+            schema: { $ref: responseRef(documents.errors.error500Unknown) }
           },
           {
             status: 503,
-            schema: { $ref: responseRef(documents.error503Unavailable) }
+            schema: { $ref: responseRef(documents.errors.error503Unavailable) }
           }
         ]
       }),
@@ -581,15 +579,15 @@ export function generateOpenapiDocument(options: JsonapiFastifyOptions): OpenAPI
           },
           {
             status: 403,
-            schema: { $ref: responseRef(documents.error403Forbidden) }
+            schema: { $ref: responseRef(documents.errors.error403Forbidden) }
           },
           {
             status: 500,
-            schema: { $ref: responseRef(documents.error500Unknown) }
+            schema: { $ref: responseRef(documents.errors.error500Unknown) }
           },
           {
             status: 503,
-            schema: { $ref: responseRef(documents.error503Unavailable) }
+            schema: { $ref: responseRef(documents.errors.error503Unavailable) }
           }
         ]
       }),
@@ -619,15 +617,15 @@ export function generateOpenapiDocument(options: JsonapiFastifyOptions): OpenAPI
           },
           {
             status: 403,
-            schema: { $ref: responseRef(documents.error403Forbidden) }
+            schema: { $ref: responseRef(documents.errors.error403Forbidden) }
           },
           {
             status: 500,
-            schema: { $ref: responseRef(documents.error500Unknown) }
+            schema: { $ref: responseRef(documents.errors.error500Unknown) }
           },
           {
             status: 503,
-            schema: { $ref: responseRef(documents.error503Unavailable) }
+            schema: { $ref: responseRef(documents.errors.error503Unavailable) }
           }
         ]
       })
@@ -648,11 +646,11 @@ export function generateOpenapiDocument(options: JsonapiFastifyOptions): OpenAPI
           },
           {
             status: 403,
-            schema: { $ref: responseRef(documents.error403Forbidden) }
+            schema: { $ref: responseRef(documents.errors.error403Forbidden) }
           },
           {
             status: 503,
-            schema: { $ref: responseRef(documents.error503Unavailable) }
+            schema: { $ref: responseRef(documents.errors.error503Unavailable) }
           }
         ]
       })

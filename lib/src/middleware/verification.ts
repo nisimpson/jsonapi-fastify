@@ -9,11 +9,20 @@ export function verifyHandler(
   operation: HandlerOperation
 ): FastifyAsyncCallback {
   return async (params) => {
+    if (definition.handlers.authorize) {
+      const authorized = await definition.handlers.authorize(operation, params.request);
+      if (!authorized) {
+        params.reply.status(401).send({});
+        return params;
+      }
+    }
     if (!definition.handlers.ready(operation)) {
       params.reply.status(503).send();
+      return params;
     }
     if (!definition.handlers[operation]) {
       params.reply.status(403).send({});
+      return params;
     }
     return params;
   };

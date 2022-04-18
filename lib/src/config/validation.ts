@@ -53,7 +53,7 @@ export function validateRelationship(
 
     // do not allow modifications on the foreign relationship
     if (field.relation.foreign) {
-      const document = documents.error404Foreign.parse({});
+      const document = documents.errors.error404Foreign.parse({});
       document.meta = relationshipMeta(field);
       params.reply.status(404).send(document);
     }
@@ -63,7 +63,7 @@ export function validateRelationship(
     const isToManyOperation = method === 'delete' || method === 'post';
     if (field.relation.association === 'one' && isToManyOperation) {
       const meta = relationshipMeta(field);
-      const document = documents.error403Forbidden.parse({});
+      const document = documents.errors.error403Forbidden.parse({});
       document.meta = meta;
       params.reply.status(403).send(document);
     }

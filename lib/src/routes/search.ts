@@ -22,7 +22,8 @@ const schema: RouteSchema = (def) => ({
   querystring: documents.querystring,
   response: {
     200: toFastifySchema(documents.response.resource(def)),
-    503: toFastifySchema(documents.error503Unavailable)
+    401: toFastifySchema(documents.errors.error401Unauthorized),
+    503: toFastifySchema(documents.errors.error503Unavailable)
   }
 });
 

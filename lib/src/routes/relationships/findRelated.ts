@@ -24,8 +24,9 @@ const schema: RouteSchema = () => ({
   headers: documents.headers(),
   response: {
     200: toFastifySchema(documents.response.any),
-    403: toFastifySchema(documents.error403Forbidden),
-    503: toFastifySchema(documents.error503Unavailable)
+    401: toFastifySchema(documents.errors.error401Unauthorized),
+    403: toFastifySchema(documents.errors.error403Forbidden),
+    503: toFastifySchema(documents.errors.error503Unavailable)
   }
 });
 

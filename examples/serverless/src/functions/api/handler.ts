@@ -1,6 +1,6 @@
 import { middyfy } from "@libs/lambda";
 import awsLambdaFastify from "aws-lambda-fastify";
-import jsonapiFastify, { define, MemoryHandler } from "jsonapi-fastify";
+import { jsonapiFastify, define, MemoryHandler } from "jsonapi-fastify";
 import { nanoid } from "nanoid";
 
 const app = jsonapiFastify({

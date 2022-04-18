@@ -1035,6 +1035,54 @@
           }
         }
       },
+      "error401Unauthorized": {
+        "content": {
+          "application/vnd.api+json": {
+            "example": {
+              "errors": [
+                {
+                  "code": "EUNAUTHORIZED",
+                  "detail": "The request was unauthorized and could not be completed.",
+                  "status": "401",
+                  "title": "Unauthorized request"
+                }
+              ],
+              "jsonapi": {
+                "version": "1.0"
+              }
+            },
+            "schema": {
+              "properties": {
+                "errors": {
+                  "default": [
+                    {
+                      "code": "EUNAUTHORIZED",
+                      "detail": "The request was unauthorized and could not be completed.",
+                      "status": "401",
+                      "title": "Unauthorized request"
+                    }
+                  ],
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "type": "array"
+                },
+                "jsonapi": {
+                  "$ref": "#/components/schemas/jsonapi"
+                },
+                "links": {
+                  "$ref": "#/components/schemas/links"
+                },
+                "meta": {
+                  "$ref": "#/components/schemas/meta"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "description": ""
+      },
       "error403Forbidden": {
         "description": "",
         "content": {

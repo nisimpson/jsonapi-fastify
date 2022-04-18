@@ -57,34 +57,38 @@ function toManyRelation(resourceType: string, opts?: { description: string }): F
   };
 }
 
-function belongsToManyRelation(opts: {
-  resource: string;
-  as: string;
-  description?: string;
-}): FieldDefinition {
+function belongsToManyRelation(
+  resource: string,
+  opts: {
+    as: string;
+    description?: string;
+  }
+): FieldDefinition {
   return {
     kind: 'relation',
     description: opts.description || '',
     relation: {
       foreign: true,
-      type: opts.resource,
+      type: resource,
       as: opts.as,
       association: 'many'
     }
   };
 }
 
-function belongsToOneRelation(opts: {
-  resource: string;
-  as: string;
-  description?: string;
-}): FieldDefinition {
+function belongsToOneRelation(
+  resource: string,
+  opts: {
+    as: string;
+    description?: string;
+  }
+): FieldDefinition {
   return {
     kind: 'relation',
     description: opts.description || '',
     relation: {
       foreign: true,
-      type: opts.resource,
+      type: resource,
       as: opts.as,
       association: 'one'
     }

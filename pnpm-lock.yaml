@@ -13,8 +13,10 @@ importers:
   examples/server:
     specifiers:
       jsonapi-fastify: workspace:^0.0.0
+      nanoid: ^3.3.1
     dependencies:
       jsonapi-fastify: link:../../lib
+      nanoid: 3.3.2
 
   examples/serverless:
     specifiers:

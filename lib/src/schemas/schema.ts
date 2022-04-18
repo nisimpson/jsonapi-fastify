@@ -522,60 +522,71 @@ export const documents = {
       })
       .passthrough();
   },
-  error409Conflict: response
-    .failure({
-      status: '409',
-      code: 'ECONFLICT',
-      title: 'Resource already exists',
-      detail: 'A resource with this id already exists on the server.'
-    })
-    .describe('error409Conflict'),
-  error406NotAcceptable: response
-    .failure({
-      status: '406',
-      code: 'ENOTACCEPTABLE'
-    })
-    .describe('error406NotAcceptable'),
-  error403Forbidden: response
-    .failure({
-      status: '403',
-      code: 'EFORBIDDEN',
-      title: 'Request not allowed',
-      detail: 'The client request is not allowed on this resource.'
-    })
-    .describe('error403Forbidden'),
-  error503Unavailable: response
-    .failure({
-      status: '503',
-      code: 'EUNAVAILABLE',
-      title: 'Resource temporarily unavailable',
-      detail: `The requested resource is temporarily unavailable.`
-    })
-    .describe('error503Unavailable'),
-  error404Foreign: response
-    .failure({
-      status: '404',
-      code: 'EFOREIGN',
-      title: 'Relation is Foreign',
-      detail: 'The requested relation is a foreign relation and cannot be accessed in this manner.'
-    })
-    .describe('error404Foreign'),
-  error404NotFound: response
-    .failure({
-      status: '404',
-      code: 'ENOTFOUND',
-      title: 'Resource not found',
-      detail: `The requested resource does not exist on this server.`
-    })
-    .describe('error404NotFound'),
-  error500Unknown: response
-    .failure({
-      status: '500',
-      code: 'EUNKNOWN',
-      title: 'Unknown Error',
-      detail: 'An unknown error occurred. See stack trace for details.'
-    })
-    .describe('error500Unknown')
+  errors: {
+    error401Unauthorized: response
+      .failure({
+        status: '401',
+        code: 'EUNAUTHORIZED',
+        title: 'Unauthorized request',
+        detail: 'The request was unauthorized and could not be completed.'
+      })
+      .describe('error401Unauthorized'),
+    error409Conflict: response
+      .failure({
+        status: '409',
+        code: 'ECONFLICT',
+        title: 'Resource already exists',
+        detail: 'A resource with this id already exists on the server.'
+      })
+      .describe('error409Conflict'),
+    error406NotAcceptable: response
+      .failure({
+        status: '406',
+        code: 'ENOTACCEPTABLE'
+      })
+      .describe('error406NotAcceptable'),
+    error403Forbidden: response
+      .failure({
+        status: '403',
+        code: 'EFORBIDDEN',
+        title: 'Request not allowed',
+        detail: 'The client request is not allowed on this resource.'
+      })
+      .describe('error403Forbidden'),
+    error503Unavailable: response
+      .failure({
+        status: '503',
+        code: 'EUNAVAILABLE',
+        title: 'Resource temporarily unavailable',
+        detail: `The requested resource is temporarily unavailable.`
+      })
+      .describe('error503Unavailable'),
+    error404Foreign: response
+      .failure({
+        status: '404',
+        code: 'EFOREIGN',
+        title: 'Relation is Foreign',
+        detail:
+          'The requested relation is a foreign relation and cannot be accessed in this manner.'
+      })
+      .describe('error404Foreign'),
+    error404NotFound: response
+      .failure({
+        status: '404',
+        code: 'ENOTFOUND',
+        title: 'Resource not found',
+        detail: `The requested resource does not exist on this server.`
+      })
+      .describe('error404NotFound'),
+    error500Unknown: response
+      .failure({
+        status: '500',
+        code: 'EUNKNOWN',
+        title: 'Unknown Error',
+        detail: 'An unknown error occurred. See stack trace for details.'
+      })
+      .describe('error500Unknown')
+  }
 };
 
 export const schemas = {

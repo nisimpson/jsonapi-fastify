@@ -24,9 +24,8 @@ const people = define<Person>((schema) => ({
       description: "The person's last name.",
       validator: (z) => z.string()
     }),
-    articles: schema.belongsToOne({
+    articles: schema.belongsToOne('articles', {
       description: 'The collection of articles written by this person.',
-      resource: 'articles',
       as: 'author'
     })
   },

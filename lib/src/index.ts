@@ -11,7 +11,7 @@ export interface JsonapiFastifyInstance extends FastifyInstance {
   openapiDoc(): OpenAPIObject;
 }
 
-const jsonapiFastify = (options: JsonapiFastifyOptions): JsonapiFastifyInstance => {
+export const jsonapiFastify = (options: JsonapiFastifyOptions): JsonapiFastifyInstance => {
   const { serverOptions, plugin } = config(options);
   const server = fastify(serverOptions);
   server.register(plugin, options);
