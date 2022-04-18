@@ -1,4 +1,4 @@
-import { JsonapiErrorObject } from 'jsonapi-spec';
+import { JsonapiErrorObject } from 'src/@types/jsonapi-spec';
 import { JsonapiResourceDefinition } from 'src/@types';
 import { HandlerOperation } from 'src/@types/handler';
 import { JsonapiFastifyError } from 'src/utils';

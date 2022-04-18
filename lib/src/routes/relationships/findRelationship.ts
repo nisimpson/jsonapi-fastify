@@ -1,4 +1,4 @@
-import { RelatedResourceDocument } from 'jsonapi-spec';
+import { RelatedResourceDocument } from 'src/@types/jsonapi-spec';
 import { JsonapiResourceDefinition } from 'src/@types';
 import { toFastifySchema, validateRelationship } from 'src/config/validation';
 import {

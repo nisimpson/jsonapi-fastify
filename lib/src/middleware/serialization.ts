@@ -1,5 +1,5 @@
 import { FastifyRequest } from 'fastify';
-import { Meta } from 'jsonapi-spec';
+import { Meta } from 'src/@types/jsonapi-spec';
 import { JsonapiQuery, JsonapiRelation, JsonapiResource } from 'src/@types';
 import { RelationalField } from 'src/schemas/fields';
 import { SerializationOptions, ResourceSerializationOptions } from 'src/utils';

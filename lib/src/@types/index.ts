@@ -4,7 +4,7 @@ import type {
   FastifyReply,
   FastifyRequest
 } from 'fastify';
-import { JsonapiErrorObject, RelatedResourceDocument, ResourceDocument } from 'jsonapi-spec';
+import { JsonapiErrorObject, RelatedResourceDocument, ResourceDocument } from 'src/@types/jsonapi-spec';
 import type { FieldDefinition } from '../schemas/fields';
 import type { Handler, HandlerResult } from './handler';
 import { InfoObject } from 'openapi3-ts';

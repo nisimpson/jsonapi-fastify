@@ -1,4 +1,4 @@
-import { SingleResourceDocument } from 'jsonapi-spec';
+import { SingleResourceDocument } from 'src/@types/jsonapi-spec';
 import { JsonapiResourceDefinition } from 'src/@types';
 import { toFastifySchema } from 'src/config/validation';
 import {

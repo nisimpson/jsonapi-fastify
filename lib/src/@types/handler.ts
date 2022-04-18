@@ -1,4 +1,4 @@
-import { Meta } from 'jsonapi-spec';
+import { Meta } from 'src/@types/jsonapi-spec';
 
 export type PageData = {
   prev?: string | number;

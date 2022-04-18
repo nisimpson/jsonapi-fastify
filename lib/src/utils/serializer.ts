@@ -8,7 +8,7 @@ import {
   ResourceObject,
   ResourceRef,
   SingleResourceDocument
-} from 'jsonapi-spec';
+} from 'src/@types/jsonapi-spec';
 
 type Data = Record<string, unknown>;
 
