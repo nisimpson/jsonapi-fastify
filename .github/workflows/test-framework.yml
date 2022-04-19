@@ -1,37 +1,17 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Test and generate coverage
+name: Test Framework
 
 on:
   push:
-    branches: [ main ]
+    branches: [dev]
   pull_request:
-    branches: [ main ]
+    branches: [main, dev]
 
 jobs:
   test:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Cache pnpm modules
-      uses: actions/cache@v2
-      with:
-        path: ~/.pnpm-store
-        key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-        restore-keys: ${{ runner.os }}-
-    - uses: pnpm/action-setup@v2.2.1
-      with:
-        version: latest
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version-file: '.nvmrc'
-        cache: 'pnpm'
-    - run: pnpm install --frozen-lockfile
-    - run: pnpm test:ci
-    - name: Coveralls Code Coverage
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+    name: Test Framework
+    uses: ./.github/workflows/workflow-test.yml
+    secrets:
+      github-token: ${{ secrets.GITHUB_TOKEN }}

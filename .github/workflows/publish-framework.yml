@@ -1,0 +1,41 @@
+# Publish Framework to NPM
+
+name: Publish Framework to NPM
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  test:
+    name: Test Framework
+    uses: ./.github/workflows/workflow-test.yml
+    secrets:
+      github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  publish:
+    name: Publish to NPM
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Cache pnpm modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: ${{ runner.os }}-
+      - uses: pnpm/action-setup@v2.2.1
+        with:
+          version: latest
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+          registry-url: 'https://registry.npmjs.org'
+          cache: "pnpm"
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: pnpm changeset publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
