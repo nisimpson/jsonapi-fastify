@@ -6,6 +6,7 @@
     "build": "pnpm -r build"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.22.0",
     "jest": "^27.5.1",
     "serverless": "^3.14.0"
   }
