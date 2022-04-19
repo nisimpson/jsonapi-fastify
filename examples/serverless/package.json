@@ -15,7 +15,7 @@
     "@middy/http-json-body-parser": "^2.5.3",
     "aws-lambda-fastify": "^2.1.2",
     "fastify": "^3.27.4",
-    "jsonapi-fastify": "workspace:^0.0.0",
+    "jsonapi-fastify": "workspace:^0.0.1",
     "nanoid": "^3.3.1"
   },
   "devDependencies": {
