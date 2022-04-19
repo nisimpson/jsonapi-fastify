@@ -1,6 +1,6 @@
 {
   "name": "jsonapi-fastify",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A node JSON:API server, powered by fastify",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
