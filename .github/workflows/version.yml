@@ -46,4 +46,5 @@ jobs:
         with:
           commit: "ci: version packages"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # See issue https://github.com/peter-evans/create-pull-request/issues/48
+          GITHUB_TOKEN: ${{ secrets.SCOPED_GITHUB_TOKEN }}
