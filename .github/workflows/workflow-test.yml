@@ -10,6 +10,7 @@ on:
 
 jobs:
   run-workflow:
+    name: Run
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

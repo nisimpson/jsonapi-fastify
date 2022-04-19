@@ -1,4 +1,7 @@
 {
+  "name": "@jsonapi-fastify/monorepo",
+  "private": true,
+  "version": "0.0.0",
   "scripts": {
     "test:ci": "jest --verbose --silent --coverage",
     "test": "jest --verbose --silent",
