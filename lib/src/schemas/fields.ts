@@ -3,12 +3,13 @@ import { z } from 'zod';
 
 type Zod = typeof z;
 
-interface ZodValidator extends Zod {}
-type FieldValidator = (z: ZodValidator) => z.ZodTypeAny;
+interface ZodInstance extends Zod {}
+type PrimitiveTypeCallback = (z: ZodInstance) => z.ZodTypeAny;
 
 export type PrimitiveField = {
   kind: 'primitive';
   schema: z.ZodTypeAny;
+  readonly?: boolean;
 };
 
 export type RelationalField = {
@@ -19,14 +20,22 @@ export type RelationalField = {
     as?: string;
     association: 'one' | 'many';
   };
+  readonly?: boolean;
   description: string;
 };
 
 export type FieldDefinition = PrimitiveField | RelationalField;
 
-function attribute(opts?: { description?: string; type?: FieldValidator }): FieldDefinition {
+type AttributeOptions = {
+  description?: string;
+  type?: PrimitiveTypeCallback;
+  readonly?: boolean;
+};
+
+function attribute(opts?: AttributeOptions): FieldDefinition {
   const schema: PrimitiveField = {
     kind: 'primitive',
+    readonly: opts?.readonly,
     schema: opts?.type
       ? opts.type(z).describe(opts.description ?? '')
       : z.unknown().describe(opts?.description ?? '')
@@ -34,9 +43,19 @@ function attribute(opts?: { description?: string; type?: FieldValidator }): Fiel
   return schema;
 }
 
-function toOneRelation(resourceType: string, opts?: { description: string }): FieldDefinition {
+type RelationOptions = {
+  description?: string;
+  readonly?: boolean;
+};
+
+type ForeignRelationOptions = RelationOptions & {
+  as?: string;
+};
+
+function toOneRelation(resourceType: string, opts?: RelationOptions): FieldDefinition {
   const schema: FieldDefinition = {
     kind: 'relation',
+    readonly: opts?.readonly,
     description: opts?.description || '',
     relation: {
       type: resourceType,
@@ -46,9 +65,10 @@ function toOneRelation(resourceType: string, opts?: { description: string }): Fi
   return schema;
 }
 
-function toManyRelation(resourceType: string, opts?: { description: string }): FieldDefinition {
+function toManyRelation(resourceType: string, opts?: RelationOptions): FieldDefinition {
   return {
     kind: 'relation',
+    readonly: opts?.readonly,
     description: opts?.description || '',
     relation: {
       type: resourceType,
@@ -57,16 +77,11 @@ function toManyRelation(resourceType: string, opts?: { description: string }): F
   };
 }
 
-function belongsToManyRelation(
-  resource: string,
-  opts: {
-    as: string;
-    description?: string;
-  }
-): FieldDefinition {
+function belongsToManyRelation(resource: string, opts: ForeignRelationOptions): FieldDefinition {
   return {
     kind: 'relation',
     description: opts.description || '',
+    readonly: opts.readonly,
     relation: {
       foreign: true,
       type: resource,
@@ -76,16 +91,11 @@ function belongsToManyRelation(
   };
 }
 
-function belongsToOneRelation(
-  resource: string,
-  opts: {
-    as: string;
-    description?: string;
-  }
-): FieldDefinition {
+function belongsToOneRelation(resource: string, opts: ForeignRelationOptions): FieldDefinition {
   return {
     kind: 'relation',
     description: opts.description || '',
+    readonly: opts.readonly,
     relation: {
       foreign: true,
       type: resource,

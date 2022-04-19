@@ -324,15 +324,30 @@ const newResource = extendApi(
   })
 ).describe('newResource');
 
-export function resourceFromDef(def: JsonapiResourceDefinition): z.AnyZodObject {
+type ResourceFromDefOptions = {
+  create?: boolean;
+  update?: boolean;
+};
+
+export function resourceFromDef(
+  def: JsonapiResourceDefinition,
+  opts?: ResourceFromDefOptions
+): z.AnyZodObject {
   let attributes: z.AnyZodObject = z.object({});
   let relationships: z.AnyZodObject = z.object({});
+
+  // if this is an update or create document and the attribute is readonly
+  // throw a validation error
+  const readonlyField = z
+    .never({ invalid_type_error: 'This field is readonly and cannot be created or modified' })
+    .optional();
+
   for (const [key, value] of Object.entries(def.fields)) {
+    const isReadonly = value.readonly && (opts?.create || opts?.update);
     if (value.kind === 'primitive') {
+      const schema = isReadonly ? readonlyField : value.schema;
       attributes = attributes.extend({
-        [key]: extendApi(value.schema, {
-          description: value.schema.description
-        })
+        [key]: extendApi(schema, { description: value.schema.description })
       });
     } else {
       const record = relationshipObject(value.relation.type)
@@ -358,8 +373,9 @@ export function resourceFromDef(def: JsonapiResourceDefinition): z.AnyZodObject 
             message: 'Invalid data value must be a resource link or null'
           }
         );
+      const schema = isReadonly ? readonlyField : record;
       relationships = relationships.extend({
-        [key]: extendApi(record, {
+        [key]: extendApi(schema, {
           description: value.description
         })
       });
@@ -392,7 +408,13 @@ const request = {
     }
     return z.object({ data });
   },
-  resource: (def: JsonapiResourceDefinition, opts?: { create: boolean }) =>
+  resource: (
+    def: JsonapiResourceDefinition,
+    opts?: {
+      create?: boolean;
+      update?: boolean;
+    }
+  ) =>
     z.object({
       data: resourceFromDef(def)
         .omit({ id: true })

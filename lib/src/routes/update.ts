@@ -18,7 +18,7 @@ import { RouteSchema, RouteConfiguration } from '.';
 const schema: RouteSchema = (definition) => ({
   headers: documents.headers({ body: true }),
   querystring: documents.querystring,
-  body: toFastifySchema(documents.request.resource(definition)),
+  body: toFastifySchema(documents.request.resource(definition, { update: true })),
   response: {
     200: toFastifySchema(documents.response.resource(definition)),
     202: toFastifySchema(documents.response.any),
