@@ -32,24 +32,14 @@ const invoke = (def: JsonapiResourceDefinition): FastifyAsyncCallback => {
       response: {
         ok: (meta) => {
           if (meta !== undefined) {
-            reply.status(200).send({
-              meta: {
-                ...context.options.meta,
-                ...meta
-              }
-            });
+            reply.status(200).send({ meta });
           } else {
             reply.status(204).send();
           }
           return {};
         },
         accepted: (meta) => {
-          reply.status(202).send({
-            meta: {
-              ...context.options.meta,
-              ...meta
-            }
-          });
+          reply.status(202).send({ meta });
           return {};
         },
         notFound: () => {

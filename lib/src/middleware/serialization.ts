@@ -47,6 +47,18 @@ export function deserializeBody(): FastifyAsyncCallback {
   };
 }
 
+function foreignRelationSelfLink(prefix: string, parentId: string, field: RelationalField) {
+  const { type, as } = field.relation;
+  // http://localhost:3000/articles/?filter[comments]=6b017640&fields[articles]
+  return `${prefix}/${type}?filter[${as}]=${parentId}&fields[${type}]`;
+}
+
+function foreignRelationRelatedLink(prefix: string, parentId: string, field: RelationalField) {
+  const { type, as } = field.relation;
+  // http://localhost:3000/articles/?filter[comments]=6b017640
+  return `${prefix}/${type}?filter[${as}]=${parentId}`;
+}
+
 export function buildSerializerFromRequest(request: FastifyRequest) {
   const context = request.jsonapi;
 
@@ -88,16 +100,26 @@ export function buildSerializerFromRequest(request: FastifyRequest) {
     dataMeta: (data: JsonapiResource) => data.$meta as Meta,
     relationshipLinks: {
       self: (_, parent, { id, type, ref }) => {
+        const schema = context.definitions[type(parent)];
+        const field = schema?.fields?.[ref!] as RelationalField;
+        if (field && field.relation.foreign) {
+          return foreignRelationSelfLink(prefix, id(parent), field);
+        }
         return `${prefix}/${type(parent)}/${id(parent)}/relationships/${ref}`;
       },
       related: (_, parent, { id, type, ref }) => {
+        const schema = context.definitions[type(parent)];
+        const field = schema?.fields?.[ref!] as RelationalField;
+        if (field && field.relation.foreign) {
+          return foreignRelationRelatedLink(prefix, id(parent), field);
+        }
         return `${prefix}/${type(parent)}/${id(parent)}/${ref}`;
       }
     },
     relationshipMeta: (current, parent, { type, ref }) => {
       const parentType = context.definitions[type(parent)];
-      const schema = parentType.fields[ref!] as RelationalField;
-      if (schema.relation.foreign) {
+      const schema = parentType?.fields[ref!] as RelationalField;
+      if (schema?.relation.foreign) {
         return {
           relation: 'foreign',
           belongsTo: schema.relation.type,

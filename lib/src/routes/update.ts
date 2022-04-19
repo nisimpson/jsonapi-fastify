@@ -52,12 +52,7 @@ function invokeHandler(definition: JsonapiResourceDefinition): FastifyAsyncCallb
           return {};
         },
         accepted: (meta) => {
-          reply.status(202).send({
-            meta: {
-              ...context.options.meta,
-              ...meta
-            }
-          });
+          reply.status(202).send({ meta });
           return {};
         },
         conflict: () => {
@@ -82,12 +77,6 @@ function sendResponse(): FastifyAsyncCallback {
     // If we are here, then we have a response document; serialize.
     const options = buildSerializerFromRequest(request);
     const document = serializer.serialize(result, options) as SingleResourceDocument;
-    document.meta = context.options.meta
-      ? {
-          ...context.options.meta,
-          ...document.meta
-        }
-      : document.meta;
     context.document = document;
 
     reply.status(200).send(document);

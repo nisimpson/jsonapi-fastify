@@ -79,7 +79,7 @@ export function setValidation(fastify: FastifyInstance): void {
   });
 }
 
-export function setSerializer(fastify: FastifyInstance): void {
+export function setSerializer(fastify: FastifyInstance, options: JsonapiFastifyOptions): void {
   fastify.log.debug('adding serializer');
   fastify.setSerializerCompiler((params) => {
     return (data) => {
@@ -87,6 +87,12 @@ export function setSerializer(fastify: FastifyInstance): void {
       fastify.log.trace('serializing payload');
       if (schema) {
         data = schema.properties.parse(data);
+        data.meta = options.meta
+          ? {
+              ...options.meta,
+              ...data.meta
+            }
+          : data.meta;
       }
       return JSON.stringify(data);
     };
@@ -115,7 +121,7 @@ const jsonapi: PluginCallback = (fastify, options, done) => {
   setHooks(fastify, options);
   setErrorHandling(fastify);
   setValidation(fastify);
-  setSerializer(fastify);
+  setSerializer(fastify, options);
   setContentParser(fastify);
   registerRoutes(fastify, options);
   fastify.log.info('register jsonapi-fastify plugin completed');

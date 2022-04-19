@@ -100,12 +100,7 @@ function invokeHandler(definition: JsonapiResourceDefinition): FastifyAsyncCallb
           // If a request to create a resource has been accepted for processing,
           // but the processing has not been completed by the time the server responds,
           // the server MUST return a 202 Accepted status code.
-          reply.status(202).send({
-            meta: {
-              ...jsonapi.options.meta,
-              ...meta
-            }
-          });
+          reply.status(202).send({ meta });
           return {};
         },
         conflict: () => {
@@ -140,12 +135,6 @@ function sendResponse(def: JsonapiResourceDefinition): FastifyAsyncCallback {
     const result = context.response.result;
     const options = buildSerializerFromRequest(request);
     const document = serializer.serialize(result, options) as SingleResourceDocument;
-    document.meta = context.options.meta
-      ? {
-          ...context.options.meta,
-          ...document.meta
-        }
-      : document.meta;
     context.document = document;
 
     // If the requested resource has been created successfully,

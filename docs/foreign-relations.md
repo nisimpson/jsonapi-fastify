@@ -155,9 +155,9 @@ relationships: {
     },
     links: {
       // get information about the linkage - list of ids and types
-      self: "http://localhost:16006/rest/comments/6b017640/relationships/author",
+      self: "http://localhost:3000/comments/6b017640/relationships/author",
       // get full details of all linked resources
-      related: "http://localhost:16006/rest/comments/6b017640/author"
+      related: "http://localhost:3000/comments/6b017640/author"
     },
     data: {
       type: "people",
@@ -174,9 +174,9 @@ relationships: {
     },
     links: {
       // get information about the linkage - list of ids and types
-      self: "http://localhost:16006/rest/articles/?filter[comments]=6b017640&fields[articles]",
+      self: "http://localhost:3000/articles/?filter[comments]=6b017640&fields[articles]",
       // get full details of all linked resources (perform a search against the foreign key)
-      related: "http://localhost:16006/rest/articles/?filter[comments]=6b017640"
+      related: "http://localhost:3000/articles/?filter[comments]=6b017640"
     }
   }
 }

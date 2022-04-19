@@ -61,12 +61,6 @@ const sendResponse = (def: JsonapiResourceDefinition): FastifyAsyncCallback => {
     const result = context.response.result;
     const options = buildSerializerFromRequest(params.request);
     const document = serializer.serialize(result, options) as SingleResourceDocument;
-    document.meta = context.options.meta
-      ? {
-          ...context.options.meta,
-          ...document.meta
-        }
-      : document.meta;
     context.document = document;
     params.reply.status(200).send(document);
     return params;

@@ -85,12 +85,6 @@ function sendResponse(def: JsonapiResourceDefinition): FastifyAsyncCallback {
     }
 
     const document = serializer.serialize(result, options) as MultiResourceDocument;
-    document.meta = context.options.meta
-      ? {
-          ...context.options.meta,
-          ...document.meta
-        }
-      : document.meta;
     context.document = document;
     params.reply.status(200).send(document);
     return params;
