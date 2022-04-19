@@ -1,3 +1,4 @@
 **/node_modules
 # Jest code coverage
 coverage
+.vscode

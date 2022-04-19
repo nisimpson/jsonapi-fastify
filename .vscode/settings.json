@@ -1,5 +1,0 @@
-{
-  "jest.shell": "/bin/zsh",
-  "jest.jestCommandLine": "pnpm jest",
-  "jestrunner.jestCommand": "pnpm jest --"
-}
