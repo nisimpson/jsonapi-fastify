@@ -17,6 +17,9 @@ const server = jsonapiFastify({
       }
     }
   },
+  meta: {
+    info: "Thanks for giving jsonapi-fastify a try!"
+  },
   definitions: [
     define((schema) => ({
       resource: 'people',
@@ -25,8 +28,7 @@ const server = jsonapiFastify({
       fields: {
         firstname: schema.attribute({ type: (z) => z.string() }),
         lastname: schema.attribute({ type: (z) => z.string() }),
-        articles: schema.belongsToOne({
-          resource: 'articles',
+        articles: schema.belongsToOne('articles', {
           as: 'author'
         })
       },

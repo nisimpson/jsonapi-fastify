@@ -56,7 +56,7 @@ function toOneRelation(resourceType: string, opts?: RelationOptions): FieldDefin
   const schema: FieldDefinition = {
     kind: 'relation',
     readonly: opts?.readonly,
-    description: opts?.description || '',
+    description: opts?.description ?? '',
     relation: {
       type: resourceType,
       association: 'one'
@@ -69,7 +69,7 @@ function toManyRelation(resourceType: string, opts?: RelationOptions): FieldDefi
   return {
     kind: 'relation',
     readonly: opts?.readonly,
-    description: opts?.description || '',
+    description: opts?.description ?? '',
     relation: {
       type: resourceType,
       association: 'many'
@@ -80,7 +80,7 @@ function toManyRelation(resourceType: string, opts?: RelationOptions): FieldDefi
 function belongsToManyRelation(resource: string, opts: ForeignRelationOptions): FieldDefinition {
   return {
     kind: 'relation',
-    description: opts.description || '',
+    description: opts.description ?? '',
     readonly: opts.readonly,
     relation: {
       foreign: true,
@@ -94,7 +94,7 @@ function belongsToManyRelation(resource: string, opts: ForeignRelationOptions): 
 function belongsToOneRelation(resource: string, opts: ForeignRelationOptions): FieldDefinition {
   return {
     kind: 'relation',
-    description: opts.description || '',
+    description: opts.description ?? '',
     readonly: opts.readonly,
     relation: {
       foreign: true,
