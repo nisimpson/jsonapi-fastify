@@ -11,6 +11,7 @@ on:
 
 jobs:
   test:
+    name: Test and Generate Coverage
     uses: ./.github/workflows/workflow-test.yml
     secrets:
       github-token: ${{ secrets.GITHUB_TOKEN }}
