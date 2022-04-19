@@ -72,7 +72,7 @@ const findRelated = (relation: string): FastifyAsyncCallback => {
   };
 };
 
-const sendResponse = (def: JsonapiResourceDefinition): FastifyAsyncCallback => {
+const sendResponse = (): FastifyAsyncCallback => {
   return async (params) => {
     const context = params.reply.jsonapi;
 
@@ -81,9 +81,14 @@ const sendResponse = (def: JsonapiResourceDefinition): FastifyAsyncCallback => {
     }
 
     const result = context.response.result;
-    const type = def.resource;
     const options = buildSerializerFromRequest(params.request);
     const document = serializer.serialize(result, options) as SingleResourceDocument;
+    document.meta = context.options.meta
+      ? {
+          ...context.options.meta,
+          ...document.meta
+        }
+      : document.meta;
     context.document = document;
     params.reply.status(200).send(document);
     return params;
@@ -115,7 +120,7 @@ const findResource: RouteConfiguration = (def, options) => {
         findPrimary(def),
         findRelated(relation),
         findIncludes(),
-        sendResponse(relationTypeDef),
+        sendResponse(),
         endRoute()
       ]);
       return reply;
