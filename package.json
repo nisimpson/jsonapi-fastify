@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "test:ci": "jest --verbose --silent --coverage",
     "test": "jest --verbose --silent",
     "test:debug": "LOG_LEVEL=debug pnpm jest --verbose",
     "build": "pnpm -r build"

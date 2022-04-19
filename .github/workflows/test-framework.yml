@@ -30,4 +30,8 @@ jobs:
         node-version-file: '.nvmrc'
         cache: 'pnpm'
     - run: pnpm install --frozen-lockfile
-    - run: pnpm test
+    - run: pnpm test:ci
+    - name: Coveralls Code Coverage
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets:GITHUB_TOKEN }}
