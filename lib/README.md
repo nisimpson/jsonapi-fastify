@@ -34,19 +34,19 @@ Ultimately, the only things users of this framework need to care about are:
 
 ### Handlers
 
-- [memory-handler](lib/src/handlers/MemoryHandler.ts) - an in-memory data store to enable rapid prototyping.
+- [memory-handler](src/handlers/MemoryHandler.ts) - an in-memory data store to enable rapid prototyping.
   This ships as a part of `jsonapi-fastify` and powers the core test suite.
-- [resource-handler](lib/src/handlers/ResourceHandler.ts) - a database agnostic handler that allows users to fully customize handler behavior.
+- [resource-handler](src/handlers/ResourceHandler.ts) - a database agnostic handler that allows users to fully customize handler behavior.
   Useful for resources that do not stem from stores with CRUD interfaces or are composed from multiple sources.
 
 ## Full documentation
 
-- [Suggested Project Structure](docs/suggested-project-structure.md)
-- [Configuring jsonapi-fastify](docs/configuration.md)
-- [Automatic OpenAPI Generation](docs/openapi.md)
-- [Defining Resources](docs/resources.md)
-- [Foreign Key Relations](docs/foreign-relations.md)
-- [Resource Handlers](docs/handlers.md)
+- [Suggested Project Structure](../docs/suggested-project-structure.md)
+- [Configuring jsonapi-fastify](../docs/configuration.md)
+- [Automatic OpenAPI Generation](../docs/openapi.md)
+- [Defining Resources](../docs/resources.md)
+- [Foreign Key Relations](../docs/foreign-relations.md)
+- [Resource Handlers](../docs/handlers.md)
 
 ## Quick Start: Server
 
