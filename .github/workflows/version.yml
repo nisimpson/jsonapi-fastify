@@ -1,20 +1,24 @@
-# Test Workflow
+# Changeset Version
 
-name: Test and Generate Coverage Workflow
+name: Create a Release Candidate
 
 on:
-  workflow_call:
-    secrets:
-      github-token:
-        required: true
+  push:
+    branches: [dev]
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  run-workflow:
-    name: Run
+  version:
+    name: Version
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+        with:
+          # This makes Actions fetch all Git history so that Changesets
+          # can generate changelogs with the correct commits
+          fetch-depth: 0
 
       - name: Cache pnpm modules
         uses: actions/cache@v2
@@ -35,12 +39,12 @@ jobs:
           cache: "pnpm"
 
       - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
 
-      - name: Run Test Suite
-        run: pnpm test:ci
-
-      - name: Coveralls Code Coverage
-        uses: coverallsapp/github-action@master
+      - name: Create Release Pull Request
+        uses: changesets/action@v1
         with:
-          github-token: ${{ secrets.github-token }}
+          commit: "ci: version packages"
+        env:
+          # See issue https://github.com/peter-evans/create-pull-request/issues/48
+          GITHUB_TOKEN: ${{ secrets.SCOPED_GITHUB_TOKEN }}
