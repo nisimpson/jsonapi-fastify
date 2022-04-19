@@ -1,5 +1,7 @@
 # jsonapi-fastify
 
+[![Coverage Status](https://coveralls.io/repos/github/nisimpson/jsonapi-fastify/badge.svg?branch=main)](https://coveralls.io/github/nisimpson/jsonapi-fastify?branch=main)
+
 ## About
 
 Inspired by projects such as [jagql-framework](https://github.com/jagql/framework) and [jsonapi-server](https://github.com/holidayextras/jsonapi-server), **jsonapi-fastify** allows developers to stand up a [`{json:api}`](https://jsonapi.org) compliant API server quickly and easily. As the name implies, **jsonapi-fastify** uses [fastify](https://www.fastify.io/) to handle request routing and configuration.
