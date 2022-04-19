@@ -10,7 +10,7 @@ on:
 
 jobs:
   run-workflow:
-    name: Test and Generate Coverage
+    name: jsonapi-fastify/test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
