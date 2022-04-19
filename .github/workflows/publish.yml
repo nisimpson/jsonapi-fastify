@@ -3,8 +3,10 @@
 name: Publish Framework to NPM
 
 on:
-  release:
-    types: [created]
+  publish:
+    branches: [main]
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   test:
@@ -18,6 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - name: Cache pnpm modules
         uses: actions/cache@v2
         with:
@@ -27,14 +30,24 @@ jobs:
       - uses: pnpm/action-setup@v2.2.1
         with:
           version: latest
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version-file: ".nvmrc"
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: "https://registry.npmjs.org"
           cache: "pnpm"
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm build
-      - run: pnpm changeset publish
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build and Publish to NPM
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          # This expects you to have a script called release which does a build
+          # for your packages and calls changeset publish
+          publish: pnpm release
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
