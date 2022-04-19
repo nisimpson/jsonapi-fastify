@@ -3,7 +3,7 @@
 name: Publish Framework to NPM
 
 on:
-  publish:
+  push:
     branches: [main]
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
