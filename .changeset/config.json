@@ -7,8 +7,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": [
-    "@jsonapi-fastify/server-example",
-    "@jsonapi-fastify/serverless-example"
-  ]
+  "ignore": []
 }
