@@ -10,6 +10,9 @@
 
 ## Chores
 
+- Updated gitlab actions to use changeset action as intended. See the repo [readme](https://github.com/changesets/action#readme)
+  for details.
+
 - Updated package.json to only include distribution files, license, and markdown (README, CHANGELOG)
 
 - Fixed serverless example handler
