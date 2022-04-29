@@ -1,4 +1,3 @@
-import { middyfy } from "@libs/lambda";
 import people from "@libs/resources/people";
 import awsLambdaFastify from "aws-lambda-fastify";
 import { jsonapiFastify } from "jsonapi-fastify";
@@ -26,4 +25,4 @@ const server = jsonapiFastify({
 
 server.init();
 const api = awsLambdaFastify(server);
-export const main = middyfy(api);
+export const main = api;

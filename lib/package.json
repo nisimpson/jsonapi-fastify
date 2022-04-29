@@ -4,6 +4,12 @@
   "description": "A node JSON:API server, powered by fastify",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "LICENSE.md",
+    "README.md",
+    "CHANGELOG.md"
+  ],
   "scripts": {
     "prepublishOnly": "npm run build",
     "precommit": "npm run test",
