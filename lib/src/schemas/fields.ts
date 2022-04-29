@@ -48,7 +48,7 @@ type RelationOptions = {
   readonly?: boolean;
 };
 
-type ForeignRelationOptions = RelationOptions & {
+type ForeignRelationOptions = Omit<RelationOptions, 'readonly'> & {
   as?: string;
 };
 
@@ -81,7 +81,7 @@ function belongsToManyRelation(resource: string, opts: ForeignRelationOptions): 
   return {
     kind: 'relation',
     description: opts.description ?? '',
-    readonly: opts.readonly,
+    readonly: true,
     relation: {
       foreign: true,
       type: resource,
@@ -95,7 +95,7 @@ function belongsToOneRelation(resource: string, opts: ForeignRelationOptions): F
   return {
     kind: 'relation',
     description: opts.description ?? '',
-    readonly: opts.readonly,
+    readonly: true,
     relation: {
       foreign: true,
       type: resource,
