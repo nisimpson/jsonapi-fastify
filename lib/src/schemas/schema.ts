@@ -335,6 +335,8 @@ export function resourceFromDef(
 ): z.AnyZodObject {
   let attributes: z.AnyZodObject = z.object({});
   let relationships: z.AnyZodObject = z.object({});
+  let hasAttributes = false;
+  let hasRelationships = false;
 
   // if this is an update or create document and the attribute is readonly
   // throw a validation error
@@ -342,10 +344,14 @@ export function resourceFromDef(
     .never({ invalid_type_error: 'This field is readonly and cannot be created or modified' })
     .optional();
 
+  const isRequest = opts?.create || opts?.update;
+  const isResponse = !isRequest;
+
   for (const [key, value] of Object.entries(def.fields)) {
-    const isReadonly = value.readonly && (opts?.create || opts?.update);
+    const isReadonly = value.readonly && isRequest;
     if (value.kind === 'primitive') {
       const schema = isReadonly ? readonlyField : value.schema;
+      hasAttributes = hasAttributes || isReadonly ? false : true;
       attributes = attributes.extend({
         [key]: extendApi(schema, { description: value.schema.description })
       });
@@ -374,6 +380,7 @@ export function resourceFromDef(
           }
         );
       const schema = isReadonly ? readonlyField : record;
+      hasRelationships = hasRelationships || isReadonly ? false : true;
       relationships = relationships.extend({
         [key]: extendApi(schema, {
           description: value.description
@@ -381,19 +388,49 @@ export function resourceFromDef(
       });
     }
   }
-  return extendApi(
+
+  if (!isResponse) {
+    const foo = true;
+  }
+
+  const resource = extendApi(
     z.object({
       meta: ref(meta).optional(),
       links: ref(links).optional(),
       id: nonEmptyString,
       type: dataType(def.resource, true),
-      attributes: attributes.partial().optional(),
-      relationships: relationships.partial().optional()
+      // *************************
+      // Some notes on attributes:
+      // *************************
+      attributes:
+        isResponse || opts?.update
+          ? // responses and update requests are loosely validated -- just ensure the right types
+            // are being returned for the attribute (if provided).
+            attributes.partial().optional()
+          : hasAttributes
+          ? // create operations require the entire attribute object as declared.
+            attributes
+          : // if the schema does not define any required attributes, allow clients to omit
+            // the attributes property entirely.
+            attributes.optional(),
+      // ****************************
+      // Some notes on relationships:
+      // ****************************
+      relationships:
+        isResponse || opts?.update
+          ? // responses and update requests are loosely validated -- just ensure the right types
+            // are being returned for the relationship (if provided).
+            relationships.partial().optional()
+          : // relationships are optional in create requests; if the client does not provide
+            // them, their default values should be assumed per JSON:API spec.
+            // (null for to-one, empty array for to-many).
+            relationships.optional()
     }),
     {
       description: def.description
     }
   ).describe(`${def.resource}Resource`);
+  return resource;
 }
 
 const request = {
@@ -416,7 +453,7 @@ const request = {
     }
   ) =>
     z.object({
-      data: resourceFromDef(def)
+      data: resourceFromDef(def, opts)
         .omit({ id: true })
         .extend({
           id: nonEmptyString.optional().refine(
@@ -435,6 +472,7 @@ const request = {
             }
           )
         })
+        .strict()
     })
 };
 

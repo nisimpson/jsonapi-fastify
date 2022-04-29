@@ -306,4 +306,28 @@ describe('when creating resources', () => {
     expect(response.statusCode).toBe(409);
     expect(response.body).toBeDefined();
   });
+
+  it('rejects missing attributes', async () => {
+    const app = build();
+    const url = '/people';
+    const response = await app.inject({
+      method: 'POST',
+      url,
+      headers: {
+        'content-type': MEDIA_TYPE,
+        accept: MEDIA_TYPE
+      },
+      payload: {
+        data: {
+          type: 'people',
+          attributes: {
+            firstname: 'Jonah'
+          }
+        }
+      }
+    });
+    expect(response.statusCode).toBe(422);
+    const body = JSON.parse(response.body);
+    expect(body.errors[0].source.pointer).toBe('/data/attributes/lastname');
+  });
 });
