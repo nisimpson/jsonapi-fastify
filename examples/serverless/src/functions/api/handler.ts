@@ -1,4 +1,3 @@
-import { middyfy } from "@libs/lambda";
 import people from "@libs/resources/people";
 import awsLambdaFastify from "aws-lambda-fastify";
 import { jsonapiFastify } from "jsonapi-fastify";
