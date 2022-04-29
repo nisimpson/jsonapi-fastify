@@ -389,10 +389,6 @@ export function resourceFromDef(
     }
   }
 
-  if (!isResponse) {
-    const foo = true;
-  }
-
   const resource = extendApi(
     z.object({
       meta: ref(meta).optional(),
