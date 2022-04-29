@@ -14,6 +14,7 @@ import { PersonHandler } from './fixtures/people';
 
 describe('when fetching', () => {
   const originalSearch = PersonHandler.search;
+  const originalFind = PersonHandler.find;
 
   beforeAll(() => {
     const app = build();
@@ -25,6 +26,7 @@ describe('when fetching', () => {
 
   afterEach(() => {
     PersonHandler.search = originalSearch;
+    PersonHandler.find = originalFind;
     resetHandlers();
   });
 
@@ -240,6 +242,38 @@ describe('when fetching', () => {
           .expectPrimaryData(document.data)
           .toMatchExample(article);
     });
+  });
+
+  it('forbids unhandled search requests', async () => {
+    PersonHandler.search = undefined;
+    const app = build();
+    const response = await app.inject({
+      method: 'GET',
+      url: '/people',
+      headers: {
+        'content-type': MEDIA_TYPE
+      }
+    });
+    expect(response.statusCode).toBe(403);
+    expect(response.body).toBeDefined();
+    const body = JSON.parse(response.body);
+    expect(body.errors[0]).toBeDefined();
+  });
+
+  it('forbids unhandled find requests', async () => {
+    PersonHandler.find = undefined;
+    const app = build();
+    const response = await app.inject({
+      method: 'GET',
+      url: '/people/1234',
+      headers: {
+        'content-type': MEDIA_TYPE
+      }
+    });
+    expect(response.statusCode).toBe(403);
+    expect(response.body).toBeDefined();
+    const body = JSON.parse(response.body);
+    expect(body.errors[0]).toBeDefined();
   });
 
   describe('relationships', () => {
