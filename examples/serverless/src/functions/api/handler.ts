@@ -26,4 +26,4 @@ const server = jsonapiFastify({
 
 server.init();
 const api = awsLambdaFastify(server);
-export const main = middyfy(api);
+export const main = api;
