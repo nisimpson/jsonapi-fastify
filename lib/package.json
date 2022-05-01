@@ -13,7 +13,7 @@
   "scripts": {
     "prepublishOnly": "pnpm run build",
     "precommit": "pnpm run test",
-    "build": "pnpm run clean && tsc --project tsconfig.build.json && tsc-alias",
+    "build": "pnpm run clean && tsc && tsc-alias",
     "check": "tsc --noEmit",
     "clean": "rm -rf ./dist",
     "pretest": "pnpm run lint",
