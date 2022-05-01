@@ -402,13 +402,13 @@ export function resourceFromDef(
         isResponse || opts?.update
           ? // responses and update requests are loosely validated -- just ensure the right types
             // are being returned for the attribute (if provided).
-            attributes.partial().optional()
+            attributes.partial().strict().optional()
           : hasAttributes
           ? // create operations require the entire attribute object as declared.
-            attributes
+            attributes.strict()
           : // if the schema does not define any required attributes, allow clients to omit
             // the attributes property entirely.
-            attributes.optional(),
+            attributes.strict().optional(),
       // ****************************
       // Some notes on relationships:
       // ****************************
@@ -416,11 +416,11 @@ export function resourceFromDef(
         isResponse || opts?.update
           ? // responses and update requests are loosely validated -- just ensure the right types
             // are being returned for the relationship (if provided).
-            relationships.partial().optional()
+            relationships.partial().strict().optional()
           : // relationships are optional in create requests; if the client does not provide
             // them, their default values should be assumed per JSON:API spec.
             // (null for to-one, empty array for to-many).
-            relationships.optional()
+            relationships.strict().optional()
     }),
     {
       description: def.description
