@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@types/jest": "^27.0.2",
+    "@types/node": "^14.14.25",
     "@types/qs": "^6.9.7",
     "esbuild": "^0.14.28",
     "esbuild-jest": "^0.5.0",
