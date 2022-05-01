@@ -1,5 +1,12 @@
 # @jsonapi-fastify/serverless-example
 
+## 1.0.3
+
+### Patch Changes
+
+- Updated dependencies [522eb5a]
+  - jsonapi-fastify@0.0.5
+
 ## 1.0.2
 
 ### Patch Changes
