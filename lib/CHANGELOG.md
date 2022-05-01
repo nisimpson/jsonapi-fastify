@@ -1,5 +1,11 @@
 # jsonapi-fastify
 
+## 0.0.5
+
+### Patch Changes
+
+- 522eb5a: fix: attribute and relationship schema should be strict
+
 ## 0.0.4
 
 ### Patch Changes
